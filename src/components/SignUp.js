@@ -22,7 +22,7 @@ function SignUp() {
 
     const formik = useFormik({
         initialValues: {
-        name: "",
+        username: "",
         email: "",
         number: "",
         password: "",
@@ -63,8 +63,8 @@ function SignUp() {
                     <input
                     className='authentication-input'
                     autoComplete="off"
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     onChange={formik.handleChange}
                     value={formik.values.name}
                     />
