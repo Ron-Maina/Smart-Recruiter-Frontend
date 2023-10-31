@@ -5,17 +5,22 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import Mainpage from './Mainpage';
 import Sidebar from './Sidebar';
+import Landingpage from './Landingpage';
 
-function App({ backgroundColor }) {
+
+function App() {
   return (
-    <div style={{ backgroundColor }}>
-      <Mainpage />
+    <>
+      <Routes>
+        <Route path='/' element={<Landingpage />} />
+        <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path='/signin' element={<SignIn />} />
+      </Routes>
       <Sidebar />
-    <Routes>
-      <Route exact path='/signup' element={<SignUp />} />
-      <Route exact path='/signin' element={<SignIn />} />
-    </Routes>
-    </div>
+      <Routes>
+        <Route exact path='/homepage' element={<Mainpage />} />
+      </Routes>
+    </>
   );
 }
 
