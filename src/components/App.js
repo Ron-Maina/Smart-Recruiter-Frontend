@@ -6,6 +6,8 @@ import SignIn from './SignIn';
 import Mainpage from './Mainpage';
 import Sidebar from './Sidebar';
 import Landingpage from './Landingpage';
+import Interviewee from './Interviewee';
+import Intervieweesidebar from './Intervieweesidebar';
 
 
 function App() {
@@ -15,8 +17,13 @@ function App() {
         <Route path='/' element={<Landingpage />} />
         <Route exact path='/signup' element={<SignUp />} />
         <Route exact path='/signin' element={<SignIn />} />
+        <Route exact path='/Interviewee' element={<Interviewee />} />
+        <Route exact path='/Intervieweesidebar' element={<Intervieweesidebar />} />
+        <Route exact path='/Sidebar' element={<Sidebar />} />
+         
+
       </Routes>
-      <Sidebar />
+
       <Routes>
         <Route exact path='/homepage' element={<Mainpage />} />
       </Routes>
