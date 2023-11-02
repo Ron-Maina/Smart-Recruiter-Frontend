@@ -6,6 +6,7 @@ import SignIn from './SignIn';
 import Mainpage from './RecruiterHome';
 import Sidebar from './RecruiterSidebar';
 import Landingpage from './Landingpage';
+import Assessmentfeedback from './Assessmentfeedback';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Landingpage />} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/signin' element={<SignIn />} />
+          <Route exact path='/assessmentfeedback' element={<Assessmentfeedback />} />
         </Routes>
       </div>
       <div>
