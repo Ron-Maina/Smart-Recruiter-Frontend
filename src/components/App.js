@@ -11,15 +11,19 @@ import Landingpage from './Landingpage';
 function App() {
   return (
     <>
-      <Routes>
-        <Route path='/' element={<Landingpage />} />
-        <Route exact path='/signup' element={<SignUp />} />
-        <Route exact path='/signin' element={<SignIn />} />
-      </Routes>
-      <Sidebar />
-      <Routes>
-        <Route exact path='/homepage' element={<Mainpage />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path='/' element={<Landingpage />} />
+          <Route exact path='/signup' element={<SignUp />} />
+          <Route exact path='/signin' element={<SignIn />} />
+        </Routes>
+      </div>
+      <div>
+        {/* <Sidebar /> */}
+        <Routes>
+          <Route exact path='/homepage' element={<Mainpage />} />
+        </Routes>
+      </div>
     </>
   );
 }

@@ -5,11 +5,13 @@ import Button from 'react-bootstrap/Button';
 
 
 
+
 function SignIn({onLogin}) {
     const navigate = useNavigate() 
 
     const [Username, setusername] = useState("")
     const [Password, setPass] = useState("")
+    const [url, setUrl] = useState("")
 
     function handleSubmit(e){
         e.preventDefault()
@@ -17,7 +19,7 @@ function SignIn({onLogin}) {
             "username": Username,
             "password": Password,
         }
-        fetch('/login', {
+        fetch(url, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -26,7 +28,7 @@ function SignIn({onLogin}) {
         })
         .then((response) => {
             if (!response.ok) {
-                alert("Invalid Email or Password");
+                alert("Invalid Username or Password");
                 setusername('')
                 setPass('')
             }else{
@@ -41,6 +43,15 @@ function SignIn({onLogin}) {
         
     }
 
+    function handleClick(user){
+        if (user === 'recruiter'){
+            setUrl("/recruiterlogin")
+        }
+        else if (user === 'interviewee'){
+            setUrl("/intervieweelogin")
+        }
+    }
+
     return (
         <div className='page'>
             <div id="signin-bg"></div>
@@ -50,8 +61,13 @@ function SignIn({onLogin}) {
             </div>
 
             <div className='authentication'>
-                 <h4 style={{textAlign: 'left', marginTop: '0px'}}><span>Please Sign In</span></h4>
-                <form onSubmit={handleSubmit} className='authentication-form'>
+                <div style={{textAlign: 'center', marginTop: '0px'}}><span>Sign In As:</span>
+                    <div className= "user-options">
+                        <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('recruiter')}><text>Recruiter</text></h5>
+                        <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('interviewee')}><span>Interviewee</span></h5>
+                    </div>
+                </div>
+                <form onSubmit={handleSubmit} className='authentication-form' style={{marginTop: '60px'}}>
                     <label htmlFor='username' className='input-label'><text>Username:</text></label>
                     <br/>
                     <input
@@ -62,7 +78,6 @@ function SignIn({onLogin}) {
                     value={Username}
                     onChange={(e) => setusername(e.target.value)}
                     />
-                    <br/>
                     <br/>
                     <br/>
                     
@@ -79,7 +94,7 @@ function SignIn({onLogin}) {
                     />
 
                     <div style={{marginTop: '20px'}}>
-                        <Button variant="info" type='submit'>SignIn</Button>{' '}   
+                        <Button variant="primary" type='submit'>SignIn</Button>{' '}   
                     </div>
                     <br/>
                     <p>

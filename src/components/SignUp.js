@@ -8,9 +8,19 @@ import {Button} from 'react-bootstrap';
 function SignUp() {
     const navigate = useNavigate()
     const [refreshPage, setRefreshPage] = useState(false);
+    const [url, setUrl] = useState("")
     
     function loginPage(){
         navigate("/login")
+    }
+
+    function handleClick(user){
+        if (user === 'recruiter'){
+            setUrl("/recruiterlogin")
+        }
+        else if (user === 'interviewee'){
+            setUrl("/intervieweelogin")
+        }
     }
 
     const formSchema = yup.object().shape({
@@ -30,7 +40,7 @@ function SignUp() {
 
         validationSchema: formSchema,
         onSubmit: (values) => {
-            fetch("/signup", {
+            fetch(url, {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -42,7 +52,7 @@ function SignUp() {
                     alert('Successful signup')
                     loginPage()
                 } else {
-                    alert('Email or Number already exists')
+                    alert('User already exists')
                 }
             });
         },
@@ -56,8 +66,13 @@ function SignUp() {
                 <h4 className='top-right'><span>SIGN UP</span></h4>
             </div>
             <div className='authentication'>
-                <h4 style={{textAlign: 'left', marginTop: '0px'}}><span>Please Sign Up</span></h4>
-                <form onSubmit={formik.handleSubmit} className='authentication-form'>
+            <div style={{textAlign: 'center', marginTop: '0px'}}><span>Sign Up As:</span>
+                    <div className= "user-options">
+                        <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('recruiter')}><text>Recruiter</text></h5>
+                        <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('interviewee')}><span>Interviewee</span></h5>
+                    </div>
+                </div>
+                <form onSubmit={formik.handleSubmit} className='authentication-form' style={{marginTop: '50px'}}>
                 <label htmlFor="username" className='input-label'><text>Username:</text></label>
                     <br />
                     <input
@@ -69,6 +84,8 @@ function SignUp() {
                     value={formik.values.name}
                     />
                     <p style={{ color: "red" }}> {formik.errors.name}</p>
+                    <br/>
+                    
 
                     <label htmlFor="email" className='input-label'><text>Email Address:</text></label>
                     <br />
@@ -82,7 +99,7 @@ function SignUp() {
                     value={formik.values.email}
                     />
                     <p style={{ color: "red" }}> {formik.errors.email}</p>
-                    
+                    <br/>
                     
                     <label htmlFor="number" className='input-label'><text>Phone Number:</text></label>
                     <br />
@@ -95,6 +112,7 @@ function SignUp() {
                     value={formik.values.number}
                     />
                     <p style={{ color: "red" }}> {formik.errors.number}</p>
+                    <br/>
 
                     <label htmlFor="password" className='input-label'> <text>Password:</text></label>
                     <br />
@@ -108,9 +126,11 @@ function SignUp() {
                     value={formik.values.password}
                     />
                     <p style={{ color: "red" }}> {formik.errors.password}</p>
+                    <br/>
                     <div><Button variant="secondary" type='submit'>Submit</Button>{' '}</div>
                 </form>
                 <div style={{textAlign: 'center'}}>
+                    <br/>
                     <p>
                         <Link to = "/signin" style={{color: "white"}}><span>Already have an account? Login</span></Link>
                     </p>
