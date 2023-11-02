@@ -1,68 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const Feedback = () => {
-  const url = "http://localhost:3000/transactions";
-  const [transactions, setTransaction] = useState([]);
-  useEffect(() => {
-    fetch(`${url}`)
-      .then((response) => response.json())
-      .then((data) => setTransaction(data));
-  }, [transactions]);
-  console.log(transactions);
+const FeedBack = () => {
   return (
-    <div>
-      {" "}
-      <table className="table table-bordered border-primary">
-        <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">Date</th>
-            <th scope="col">Description</th>
-            <th scope="col">Mentor</th>
-            <th scope="col">Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>10th October</td>
-            <td>Gibberish</td>
-            <td>J MAGU</td>
-            <td>90</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>10th October</td>
-            <td>Gibberish</td>
-            <td>J MAGU</td>
-            <td>100</td>
-          </tr>
+    <div
+      className="d-flex p-2 justify-content-evenly flex-wrap"
+      style={{
+        marginTop: "250px",
+        marginLeft: "15%",
+        height: "300px",
+        width: "75%",
+      }}
+    >
+      <div className="card" style={{ width: "40rem", height: "20rem",paddingTop:"60px", margin: "20px" }}>
+        <div className="card-body">
+          <h5 className="card-title">Assessment Name: </h5>
+          <h6 className="card-subtitle mb-2 text-body-secondary">DATE: </h6>
+          <p className="card-text">GRADE:</p>
+          <a href="#" className="btn btn-primary">
+            View Assessment details
+          </a>
+        </div>
+      </div>
 
-          <tr>
-            <td>3</td>
-            <td>10th October</td>
-            <td>Gibberish</td>
-            <td>J MAGU</td>
-            <td>80</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>19th October</td>
-            <td>Gibberish</td>
-            <td>Julius Gichane</td>
-            <td>70</td>
-            <tr>
-              <td>5</td>
-              <td>10th November</td>
-              <td>Gibberish</td>
-              <td>J MAGU</td>
-              <td>90</td>
-            </tr>
-          </tr>
-        </tbody>
-      </table>
+      <div className="card" style={{ width: "40rem", height: "20rem",paddingTop:"60px", margin: "20px" }}>
+        <div className="card-body">
+          <h5 className="card-title">Assessment Name: </h5>
+          <h6 className="card-subtitle mb-2 text-body-secondary">DATE: </h6>
+          <p className="card-text">GRADE:</p>
+          <a href="#" className="btn btn-primary">
+            View Assessment details
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Feedback;
+export default FeedBack;
