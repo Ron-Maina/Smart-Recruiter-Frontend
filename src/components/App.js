@@ -1,4 +1,6 @@
 import './App.css';
+import Feedback from './Feedback';
+
 import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
 import SignUp from './SignUp';
@@ -14,6 +16,7 @@ function App() {
       <div>
         <Routes>
           <Route path='/' element={<Landingpage />} />
+          <Route path='/' element={<Feedback/>} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/signin' element={<SignIn />} />
         </Routes>
