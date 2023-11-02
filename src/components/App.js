@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import Mainpage from './Mainpage';
-import Sidebar from './Sidebar';
+import Mainpage from './RecruiterHome';
+import Sidebar from './RecruiterSidebar';
 import Landingpage from './Landingpage';
 
 
@@ -27,5 +27,7 @@ function App() {
     </>
   );
 }
-
+{/* <Route exact path='/Interviewee' element={<Interviewee />} />
+<Route exact path='/Intervieweesidebar' element={<Intervieweesidebar />} />
+<Route exact path='/Sidebar' element={<Sidebar />} /> */}
 export default App;

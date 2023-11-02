@@ -3,9 +3,6 @@ import { useState} from 'react'
 import {useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 
-
-
-
 function SignIn({onLogin}) {
     const navigate = useNavigate() 
 
@@ -60,7 +57,7 @@ function SignIn({onLogin}) {
                 <h4 className='top-right'><span>SIGN IN</span></h4>
             </div>
 
-            <div className='authentication'>
+            <div className='authentication' style={{height: '500px'}}>
                 <div style={{textAlign: 'center', marginTop: '0px'}}><span>Sign In As:</span>
                     <div className= "user-options">
                         <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('recruiter')}><text>Recruiter</text></h5>
