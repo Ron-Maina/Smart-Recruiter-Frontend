@@ -16,21 +16,30 @@ import Intervieweelist from './Intervieweelist';
 
 function App() {
   const [assessment_id, setAssessment_id] = useState("")
+  const [reviewing_id, setReviewing_id] = useState([])
+  const [username, setUsername] = useState('')
+
 
   function handleRender(id){
     setAssessment_id(id)
   }
+
+  function renderQuestions(interviewee_id, assessment_id, username){
+    setReviewing_id([assessment_id, interviewee_id])
+    setUsername(username)
+  }
+
   return (
     <>
       <div>
         <Routes>
           <Route path='/' element={<Landingpage />} />
-          <Route path='/' element={<Feedback/>} />
+          <Route path='/x' element={<Feedback/>} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/signin' element={<SignIn />} />
-          <Route exact path='/assessmentfeedback' element={<Assessmentfeedback />} />
-          <Route exact path='/Assessmentreviews' element={<Assessmentreviews onrender={handleRender}/>} />
-          <Route exact path='/Intervieweelist' element={<Intervieweelist assessment_id={assessment_id}/>} />
+          <Route exact path='/assessmentfeedback' element={<Assessmentfeedback reviewing_id={reviewing_id} username={username}/>} />
+          <Route exact path='/assessmentreviews' element={<Assessmentreviews onrender={handleRender} />} />
+          <Route exact path='/Intervieweelist' element={<Intervieweelist assessment_id={assessment_id} onRenderQuestions={renderQuestions}/>} />
 
         </Routes>
       </div>

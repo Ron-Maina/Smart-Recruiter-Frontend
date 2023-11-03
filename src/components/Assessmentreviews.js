@@ -37,12 +37,10 @@ function Assessmentreviews({onrender}) {
         {/* Display assessments in a list (one on top of the other) */}
         <div className="mx-4">
           {assessments.map((assessment) => (
-            <Link to="/Intervieweelist"> {/* Add the Link component here */}
+            <Link to="/Intervieweelist" className= 'link_to'> 
               <div key={assessment.id} className="p-4 bg-white rounded-lg mb-4" onClick={() => handleClick(assessment.id)}>
                 <h2 className="text-xl font-bold">{assessment.title}</h2>
-                <a href={assessment.link} target="_blank" rel="noopener noreferrer">
-                  View Assessment
-                </a>
+                <h5 style={{fontSize: 'medium'}}>{assessment.link} </h5>
               </div>
             </Link>
           ))}

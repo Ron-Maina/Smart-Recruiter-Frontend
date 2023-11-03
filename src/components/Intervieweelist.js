@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-function Intervieweelist({ assessment_id }) {
+function Intervieweelist({ assessment_id, onRenderQuestions}) {
   const [interviewees, setInterviewees] = useState([]);
   const [viewMode, setViewMode] = useState("pending"); // Default to pending view
 
@@ -8,8 +9,8 @@ function Intervieweelist({ assessment_id }) {
     // Define the API endpoint URL based on the current view mode
     const apiUrl =
       viewMode === "pending"
-        ? `/pendingreview/${assessment_id}`
-        : `/reviewedreview/${assessment_id}`; // Replace with the correct URLs
+        ? `/pendinginterviewees/${assessment_id}`
+        : `/reviewedinterviewees/${assessment_id}`; 
 
     // Fetch interviewee data for the given assessment ID
     fetch(apiUrl)
@@ -26,6 +27,10 @@ function Intervieweelist({ assessment_id }) {
         console.error("Error fetching data:", error);
       });
   }, [assessment_id, viewMode]);
+
+  function handleClick(interviewee_id, assessment_id, username){
+    onRenderQuestions(interviewee_id, assessment_id, username)
+  }
 
   return (
     <div>
@@ -59,10 +64,12 @@ function Intervieweelist({ assessment_id }) {
         {/* Display interviewees for the assessment based on the view mode */}
         <div className="mx-4">
           {interviewees.map((interviewee, index) => (
-            <div key={index} className="p-4 bg-white rounded-lg mb-4">
-              <h2 className="text-xl font-bold">{interviewee.username}</h2>
-              <p>Email: {interviewee.email}</p>
-            </div>
+            <Link to = '/assessmentfeedback' className="link_to">
+              <div key={index} className="p-4 bg-white rounded-lg mb-4" onClick={() => handleClick(interviewee.id, interviewee.assessment_id, interviewee.username)}>
+                <h2 className="text-xl font-bold">{interviewee.username}</h2>
+                <p>Email: {interviewee.email}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

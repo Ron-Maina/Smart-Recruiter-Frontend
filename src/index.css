@@ -14,7 +14,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.link_to {
+  text-decoration: none;
+  color: black;
+}
 .page{
   height: 100vh;
   position: relative;
