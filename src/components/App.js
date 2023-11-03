@@ -1,5 +1,5 @@
 import './App.css';
-import Feedback from './Feedback';
+import Feedback from './AcceptedAssessments';
 
 import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
@@ -7,11 +7,12 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import RecruiterHome from './RecruiterHome';
 import IntervieweeHome from './IntervieweeHome';
-import Sidebar from './RecruiterSidebar';
 import Landingpage from './Landingpage';
-import Assessmentfeedback from './Assessmentfeedback';
-import Assessmentreviews from './Assessmentreviews';
-import Intervieweelist from './Intervieweelist';
+import Recruiterfeedback from './Recruiterfeedback';
+import RecruiterAssessments from './RecruiterAssessments';
+import RecruiterIntervieweelist from './RecruiterIntervieweelist';
+import IntervieweeAssessments from './AcceptedAssessments';
+import IntervieweeReviewed from './MyAssessments.js';
 
 
 function App() {
@@ -34,27 +35,23 @@ function App() {
       <div>
         <Routes>
           <Route path='/' element={<Landingpage />} />
-          <Route path='/x' element={<Feedback/>} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/signin' element={<SignIn />} />
-          <Route exact path='/assessmentfeedback' element={<Assessmentfeedback reviewing_id={reviewing_id} username={username}/>} />
-          <Route exact path='/assessmentreviews' element={<Assessmentreviews onrender={handleRender} />} />
-          <Route exact path='/Intervieweelist' element={<Intervieweelist assessment_id={assessment_id} onRenderQuestions={renderQuestions}/>} />
-
-        </Routes>
-      </div>
-      <div>
-        {/* <Sidebar /> */}
-        <Routes>
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
-          
+          <Route exact path='/intervieweeassessments' element={<IntervieweeAssessments />} />
+          <Route exact path='/feedback' element={<IntervieweeReviewed />} />
+
+
           <Route exact path='/recruiterhomepage' element={<RecruiterHome />} />
+          <Route exact path='/recruiterfeedback' element={<Recruiterfeedback reviewing_id={reviewing_id} username={username}/>} />
+          <Route exact path='/recruiterAssessments' element={<RecruiterAssessments onrender={handleRender} />} />
+          <Route exact path='/recruiterinterviewees' element={<RecruiterIntervieweelist assessment_id={assessment_id} onRenderQuestions={renderQuestions}/>} />
+
         </Routes>
       </div>
     </>
   );
 }
-{/* <Route exact path='/Interviewee' element={<Interviewee />} />
-<Route exact path='/Intervieweesidebar' element={<Intervieweesidebar />} />
-<Route exact path='/Sidebar' element={<Sidebar />} /> */}
+
+
 export default App;
