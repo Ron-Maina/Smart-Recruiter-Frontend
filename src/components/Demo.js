@@ -4,11 +4,11 @@ function Demo() {
     const [demo, setDemo] = useState({})
     
 
-    // useEffect(() => {
-    //     fetch('https://www.codewars.com/api/v1/code-challenges/valid-braces')
-    //     .then(res => res.json())
-    //     .then(data => setDemo(data))
-    // })
+    useEffect(() => {
+        fetch('https://www.codewars.com/api/v1/code-challenges/valid-braces')
+        .then(res => res.json())
+        .then(data => setDemo(data))
+    })
 
   return (
     <div className='page'>
