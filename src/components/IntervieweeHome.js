@@ -1,6 +1,6 @@
 import React from "react";
-import Intervieweesidebar from "./Intervieweesidebar";
-import Sidebar from "./RecruiterSidebar";
+import Intervieweesidebar from "./IntervieweeSidebar";
+
 
 function IntervieweeHome(){
 

@@ -23,7 +23,7 @@ function Intervieweesidebar(){
               </NavLink>
 
               <NavLink to="/my-watchlist">
-              <div>Feedback</div>
+              <div>Reviewed Assessments</div>
               </NavLink>
 
               <NavLink to="/my-watchlist">
