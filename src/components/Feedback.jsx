@@ -16,7 +16,7 @@ const FeedBack = () => {
           <h5 className="card-title">Assessment Name: </h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">DATE: </h6>
           <p className="card-text">GRADE:</p>
-          <a href="#" className="btn btn-primary">
+          <a href="frontcode" className="btn btn-primary">
             View Assessment details
           </a>
         </div>
@@ -27,7 +27,7 @@ const FeedBack = () => {
           <h5 className="card-title">Assessment Name: </h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">DATE: </h6>
           <p className="card-text">GRADE:</p>
-          <a href="#" className="btn btn-primary">
+          <a href="frontcode" className="btn btn-primary">
             View Assessment details
           </a>
         </div>
