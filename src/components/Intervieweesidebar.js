@@ -5,39 +5,37 @@ import {
   CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
-  CDBSidebarMenuItem,
+  div,
 } from 'cdbreact';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Intervieweesidebar(){
 
-    return(
-      <div id="sidebar">
-        <>
-          <CDBSidebarContent className="sidebar-content">
-              <CDBSidebarMenu id = 'sidebar-menu'>
-
-                  <Link to="/homepage">
-                    <div id= 'sidebar-items' style={{color: 'black'}}>Assessments</div>
-                  </Link>
-
-                  <Link to="/contactspage">
-                      <div id= 'sidebar-items'>Feedback</div>
-                  </Link>
-                  
-              </CDBSidebarMenu>
-          </CDBSidebarContent>
-          <CDBSidebarFooter style={{ textAlign: 'center' }}>
+  return(
+    <div className="sidebar">
+      <CDBSidebarContent >
+          <CDBSidebarMenu className="sidebar-content">
               
-                  <div className="sidebar-btn-wrapper" style={{marginBottom: '20px'}}>
-                      <h6><span>Smart</span> Recruiter</h6>
-                  </div>
-              
-          </CDBSidebarFooter>
-      </>
-      </div>
-    );
+
+              <NavLink to="/movies">
+              <div>Assessments</div>
+              </NavLink>
+
+              <NavLink to="/my-watchlist">
+              <div>Feedback</div>
+              </NavLink>
+
+              <NavLink to="/my-watchlist">
+              <div>Logout</div>
+              </NavLink>
+             
+          </CDBSidebarMenu>
+      </CDBSidebarContent>
+
+
+    </div>
+  );
 };
 
 export default Intervieweesidebar;
