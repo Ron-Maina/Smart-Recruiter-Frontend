@@ -3,7 +3,8 @@ import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import Mainpage from './RecruiterHome';
+import RecruiterHome from './RecruiterHome';
+import IntervieweeHome from './IntervieweeHome';
 import Sidebar from './RecruiterSidebar';
 import Landingpage from './Landingpage';
 
@@ -21,7 +22,9 @@ function App() {
       <div>
         {/* <Sidebar /> */}
         <Routes>
-          <Route exact path='/homepage' element={<Mainpage />} />
+          <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
+          
+          <Route exact path='/recruiterhomepage' element={<RecruiterHome />} />
         </Routes>
       </div>
     </>

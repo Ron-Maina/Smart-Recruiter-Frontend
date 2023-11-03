@@ -1,10 +1,10 @@
 import React from "react";
 
-function Mainpage(){
+function RecruiterHome(){
 
     return(
       <div>
-        <div id="homepage-bg"></div>
+        
         <div className="relative rounded-3xs w-full h-[665px] overflow-hidden bg-[url('/public/home-page@3x.png')] bg-cover bg-no-repeat bg-[top] text-left text-5xl text-deepskyblue font-inter">
         <div className="absolute top-[47px] left-[58px] font-medium text-2xl">
           <span className="text-[#b9b79a]">{`SMART `}</span>
@@ -39,4 +39,4 @@ function Mainpage(){
 
 }
 
-export default Mainpage;
+export default RecruiterHome;

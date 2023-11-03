@@ -63,17 +63,17 @@ code {
   z-index: -1;
   transform: scale(1.1);
 }
-#homepage-bg{
+#intervieweehomepage-bg{
   position: absolute;
   height: 100%; 
   width: 100%; 
-  background-image: url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&q=80&w=1171&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url('https://images.unsplash.com/photo-1602992708529-c9fdb12905c9?auto=format&fit=crop&q=80&w=1170&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment:fixed;
-  filter: blur(2.5px);
-  filter: brightness(50%);
+  /* filter: blur(100px); */
+  filter: brightness(35%);
   z-index: -1;
   transform: scale(1.1);
 }
@@ -126,5 +126,22 @@ text{
   column-gap: 30px;
   justify-content: center;
 
+}
+.displayfield{
+  position: relative;
+  height: 100vh;
+  border: 2px solid #333;
+  padding: 15px 20px 18px 18px;
+  overflow: hidden;
+  display: flex;
+  column-gap: -50px;
+  /* display: table; */
+  /* display: grid;
+  grid-gap: 2%;
+  grid-auto-flow: column;
+  width: 100%;
+  grid-template-columns: 10fr, 10fr; */
+  justify-content: center; 
+  /* background-color: #E3E3E3; */
 }
 

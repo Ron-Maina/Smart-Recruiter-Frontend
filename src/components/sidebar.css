@@ -1,0 +1,21 @@
+#sidebar{
+    /* color: green; */
+    background-color: deepskyblue;
+    opacity: 0.3;
+    position: absolute;
+    left: 50px;
+    overflow: hidden;
+    height: 600px;
+    width: 350px;
+    margin-top: 8%;
+  }
+  #sidebar-menu{
+    margin-top: 40px;
+    text-align: center;
+  }
+  #sidebar-items{
+    margin-bottom: 50px;
+    /* color: deepskyblue; */
+  }
+  
+  

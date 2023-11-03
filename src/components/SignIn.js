@@ -9,6 +9,17 @@ function SignIn({onLogin}) {
     const [Username, setusername] = useState("")
     const [Password, setPass] = useState("")
     const [url, setUrl] = useState("")
+    const [user, setUser] = useState("")
+
+    function handleClick(user){
+        if (user === 'recruiter'){
+            setUser(user)
+            setUrl("/recruiterlogin")
+        }
+        else if (user === 'interviewee'){
+            setUrl("/intervieweelogin")
+        }
+    }
 
     function handleSubmit(e){
         e.preventDefault()
@@ -29,8 +40,14 @@ function SignIn({onLogin}) {
                 setusername('')
                 setPass('')
             }else{
-                navigate("/homepage", {replace: true})
-                return response.json();
+                if (user === 'recruiter'){
+                    navigate("/recruiterhomepage", {replace: true})
+                    return response.json();
+                }
+                else if(user === 'interviewee') {
+                    navigate("/intervieweehomepage", {replace: true})
+                    return response.json();
+                }
             }   
         })
         .then(user => onLogin(user))
@@ -40,14 +57,7 @@ function SignIn({onLogin}) {
         
     }
 
-    function handleClick(user){
-        if (user === 'recruiter'){
-            setUrl("/recruiterlogin")
-        }
-        else if (user === 'interviewee'){
-            setUrl("/intervieweelogin")
-        }
-    }
+   
 
     return (
         <div className='page'>
