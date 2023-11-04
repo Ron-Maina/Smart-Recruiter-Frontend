@@ -1,24 +1,51 @@
 import React from "react";
+import './sidebar.css'
+import {
+  CDBSidebarContent,
+  CDBSidebarFooter,
+  CDBSidebarHeader,
+  CDBSidebarMenu,
+  div,
+} from 'cdbreact';
+import { Link, NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function Sidebar(){
+function RecruiterSidebar(){
+  const navigate = useNavigate()
 
-    return(
-        <div>
-          <div className="absolute top-[155px] left-[30px] rounded-xl bg-[#324c59] bg-opacity-70 box-border w-[247px] h-[480px] border-[2px] border-solid border-lightgoldenrodyellow" />
-              <div
-          className="absolute top-[270px] left-[105px] text-xl font-semibold inline-block w-[234px] h-[29px] cursor-pointer text-[#0cc2fa]">
-          Assessments
-        </div>
-        <div className="absolute top-[370px] left-[105px] text-xl font-semibold inline-block w-[234px] h-[29px] text-[#0cc2fa]">
-          Reviews
-        </div>
-        <div className="absolute top-[461px] left-[105px] text-xl font-semibold inline-block w-[234px] h-[29px] text-[#0cc2fa]">
-          Interviewees
-        </div>
+  function Logout(){
+    fetch("/recruiterlogout", {
+        method: "DELETE",
+    })
 
-        </div>
-    )
+    navigate("/", {replace: true})
+  }
 
-}
+  return(
+    <div className="sidebar">
+      <CDBSidebarContent >
+          <CDBSidebarMenu className="sidebar-content">
+              
 
-export default Sidebar;
+              <NavLink to="/recruiterassessments">
+              <div>Assessments</div>
+              </NavLink>
+
+              <NavLink to="/recruiterassessments">
+              <div>Reviewes</div>
+              </NavLink>
+
+             
+              <div onClick={Logout}>Logout</div>
+              
+             
+          </CDBSidebarMenu>
+      </CDBSidebarContent>
+
+
+    </div>
+  );
+};
+
+export default RecruiterSidebar;
+
