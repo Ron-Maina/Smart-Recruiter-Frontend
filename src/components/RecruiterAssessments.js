@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import the Link component from React Router
+import { Link } from "react-router-dom"; 
+import RecruiterSidebar from "./RecruiterSidebar";
 
 function RecruiterAssessments({onrender}) {
   const [assessments, setAssessments] = useState([]);
@@ -28,22 +29,23 @@ function RecruiterAssessments({onrender}) {
   }
 
   return (
-    <div>
-      {/* Your background and box styling here */}
-      <div className="absolute top-[155px] left-[320px] rounded-3xs bg-darkslategray box-border w-[941px] h-[480px] border-[2px] border-solid border-lightgoldenrodyellow bg-[#324c59] bg-opacity-60" style={{ overflow: "auto" }}>
-        {/* Title */}
+    <div className="page">
+      <div id="intervieweehomepage-bg"></div>
+      <div className="display">
+        <RecruiterSidebar />
+        <div className="content">
         <h1 className="text-3xl font-bold text-white p-4 text-center">My Assessments</h1>
 
-        {/* Display assessments in a list (one on top of the other) */}
         <div className="mx-4">
           {assessments.map((assessment) => (
-            <Link to="/Intervieweelist" className= 'link_to'> 
+            <Link to="/recruiterinterviewees" className= 'link_to'> 
               <div key={assessment.id} className="p-4 bg-white rounded-lg mb-4" onClick={() => handleClick(assessment.id)}>
                 <h2 className="text-xl font-bold">{assessment.title}</h2>
                 <h5 style={{fontSize: 'medium'}}>{assessment.link} </h5>
               </div>
             </Link>
           ))}
+        </div>
         </div>
       </div>
     </div>
