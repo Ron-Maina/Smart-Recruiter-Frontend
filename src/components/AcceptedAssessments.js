@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
 import Intervieweesidebar from "./IntervieweeSidebar";
 
-function IntervieweeAssessments() {
+function AcceptedAssessments() {
   const [assessments, setAssessments] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -56,7 +56,7 @@ function IntervieweeAssessments() {
   return (
     <div className="page">
 
-      <div id="intervieweeassessments-bg"></div>
+      <div id="AcceptedAssessments-bg"></div>
       <div className="display">
         <Intervieweesidebar />
         <div className="content" style={{ overflow: "auto" }}>
@@ -89,4 +89,4 @@ function IntervieweeAssessments() {
   );
 }
 
-export default IntervieweeAssessments;
+export default AcceptedAssessments;

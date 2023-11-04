@@ -25,12 +25,12 @@ function Intervieweesidebar(){
           <CDBSidebarMenu className="sidebar-content">
               
 
-              <NavLink to="/intervieweeassessments">
+              <NavLink to="/acceptedassessments">
               <div>Assessments</div>
               </NavLink>
 
-              <NavLink to="/my-watchlist">
-              <div>Reviewed Assessments</div>
+              <NavLink to="/myreviews">
+              <div>My Reviewes</div>
               </NavLink>
 
               

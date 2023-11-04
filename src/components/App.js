@@ -11,9 +11,10 @@ import Landingpage from './Landingpage';
 import Recruiterfeedback from './Recruiterfeedback';
 import RecruiterAssessments from './RecruiterAssessments';
 import RecruiterIntervieweelist from './RecruiterIntervieweelist';
-import IntervieweeAssessments from './AcceptedAssessments';
+import AcceptedAssessments from './AcceptedAssessments';
+import ViewFeedback from './ViewFeedback';
 
-import IntervieweeReviewed from './MyAssessments.js';
+import MyReviews from './MyReviews.js';
 import CreateAssessment from './CreateAssessment';
 
 
@@ -23,6 +24,8 @@ function App() {
   const [assessment_id, setAssessment_id] = useState("")
   const [reviewing_id, setReviewing_id] = useState([])
   const [username, setUsername] = useState('')
+
+  const [intAssessmentsID, setAssessments] = useState('')
 
 
   useEffect(() => {
@@ -46,6 +49,10 @@ function App() {
     setUsername(username)
   }
 
+  function RenderQuestions(id){
+      setAssessments(id)
+  }
+
   return (
     <>
       <div>
@@ -54,7 +61,11 @@ function App() {
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/signin' element={<SignIn />} />
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
-          <Route exact path='/intervieweeassessments' element={<IntervieweeAssessments />} />
+          <Route exact path='/acceptedassessments' element={<AcceptedAssessments />} />
+          <Route exact path='/myreviews' element={<MyReviews renderQuestions={RenderQuestions}/>} />
+          <Route exact path='/viewfeedback' element={<ViewFeedback intAssessmentsID={intAssessmentsID}/>} />
+
+
           {/* <Route exact path='/demo' element={<Demo />} /> */}
           <Route exact path='/newassessment' element={<CreateAssessment recruiter={recruiter}/>} />
 
