@@ -26,6 +26,7 @@ function IntervieweeAssessments() {
           
         </Modal.Header>
         <Modal.Body>
+          <p>Assessment will begin immediately you click one of the buttons below</p>
           <div style={{display: 'flex', justifyContent: 'center', gap: '20px'}}>
           <Button variant="outline-success">Take Demo</Button>{' '}
           <Button variant="outline-success">Start Assessment</Button>{' '}
