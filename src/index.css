@@ -50,14 +50,7 @@ hr{
   margin-left: 100px;
   
 }
-/* .review-form{
-  background-color: black;
-  border-radius: 20px;
-  color: white;
-  width: 95%;
-  padding-bottom: 0px;
-} */
-/* "bg-black p-4 rounded-lg m-4 text-white w-[95%]" */
+
 .content {
   background-color: rgba(32, 129, 161, 0.2);
   margin-top: 150px;
@@ -172,15 +165,24 @@ hr{
   text-align: center;
 }
 .authentication-form{
-  margin-top: 80px;
-  
+  margin-top: 10px;
 }
 .authentication-input {
   width: 300px;
   height: 30px;
 }
-.input-label {
-  margin-top: 100px;
+.input-label{
+  /* margin-top: 50px; */
+  font-size: 1em;
+  text-transform: uppercase;
+  /* padding-top: 5px; */
+  text-align: center;
+}
+#input-label{
+   margin-top: 50px;
+   font-size: 1em;
+   text-transform: uppercase;
+   text-align: center;
 }
 span{
   color: lightgoldenrodyellow;
@@ -202,13 +204,7 @@ text{
   overflow: hidden;
   display: flex;
   column-gap: -50px;
-  /* display: table; */
-  /* display: grid;
-  grid-gap: 2%;
-  grid-auto-flow: column;
-  width: 100%;
-  grid-template-columns: 10fr, 10fr; */
   justify-content: center; 
-  /* background-color: #E3E3E3; */
+
 }
 
