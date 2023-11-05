@@ -1,5 +1,4 @@
 import './App.css';
-import Feedback from './AcceptedAssessments';
 
 import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
@@ -20,6 +19,10 @@ import CreateAssessment from './CreateAssessment';
 
 function App() {
   const [recruiter, setRecruiter] = useState("")
+  const [interviewee, setInterviewee] = useState("") 
+  // const [auth, setAuth] = useState("")
+ 
+  
 
   const [assessment_id, setAssessment_id] = useState("")
   const [reviewing_id, setReviewing_id] = useState([])
@@ -28,17 +31,39 @@ function App() {
   const [intAssessmentsID, setAssessments] = useState('')
 
 
-  useEffect(() => {
-    fetch("/recruitersession")
-    .then((response) => {
-      if (response.ok) {
-        response.json()
-        .then((user) => setRecruiter(user));
-      } else{
-        console.log('Session not found')
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/recruitersession")
+  //   .then((response) => {
+  //     if (response.ok) {
+  //       response.json()
+  //       .then((user) => setRecruiter(user));
+  //     } else{
+  //       console.log('Recruiter Session not found')
+  //     }
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch("/intervieweesession")
+  //   .then((response) => {
+  //     if (response.ok) {
+  //       response.json()
+  //       .then((user) => setInterviewee(user));
+  //     } else{
+  //       console.log('Interviewee Session not found')
+  //     }
+  //   });
+  // }, []);
+
+
+  function hanleLogin(user){
+     if (user.role === 'recruiter'){
+      setRecruiter(user)
+     }
+     else if (user.role === 'interviewee'){
+      setInterviewee(user)
+     }
+  }
 
   function handleRender(id){
     setAssessment_id(id)
@@ -59,7 +84,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Landingpage />} />
           <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/signin' element={<SignIn />} />
+          <Route exact path='/signin' element={<SignIn onLogin={hanleLogin}/>} />
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
           <Route exact path='/acceptedassessments' element={<AcceptedAssessments />} />
           <Route exact path='/myreviews' element={<MyReviews renderQuestions={RenderQuestions}/>} />

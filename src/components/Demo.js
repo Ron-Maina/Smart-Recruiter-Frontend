@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
+import Navigationbar from "./Navbar";
+
 function Demo() {
     const [demo, setDemo] = useState({})
     
@@ -13,6 +15,7 @@ function Demo() {
   return (
     <div className='page'>
         <div id="intervieweehomepage-bg"></div>
+        <Navigationbar />
         <div className="display">
             <div className="kata">
                 <p className="break-point" style={{color: 'white'}}>{demo.description}</p>

@@ -12,11 +12,11 @@ function Landingpage() {
         <div className='top-right' style={{display: 'flex', columnGap: '30px'}}>
 
           <div className="dropdown-toggle">
-            <Link to = '/signin'><span>SIGN IN</span></Link>
+            <Link to = '/signin' className="link_to"><span>SIGN IN</span></Link>
           </div>
 
           <div className="dropdown-toggle">
-            <Link to = '/signup'><span style={{marginLeft: '10px'}}>SIGN UP</span></Link>
+            <Link to = '/signup' className="link_to"><span style={{marginLeft: '10px'}}>SIGN UP</span></Link>
           </div>
         </div>
 

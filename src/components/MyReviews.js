@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
 import Intervieweesidebar from "./IntervieweeSidebar";
+import Navigationbar from "./Navbar";
 
 function MyReviews({renderQuestions}) {
   const [assessments, setAssessments] = useState([]);
@@ -43,6 +44,7 @@ function MyReviews({renderQuestions}) {
     <div className="page">
 
       <div id="intervieweeassessments-bg"></div>
+      <Navigationbar />
       <div className="display">
         <Intervieweesidebar />
         <div className="content" style={{ overflow: "auto" }}>

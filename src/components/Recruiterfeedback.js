@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RecruiterSidebar from './RecruiterSidebar';
+import Navigationbar from './Navbar';
 
 function Recruiterfeedback({reviewing_id, username}) {
   const [feedback, setFeedback] = useState('');
@@ -28,6 +29,7 @@ function Recruiterfeedback({reviewing_id, username}) {
   return (
     <div className='page'>
       <div id="intervieweehomepage-bg"></div>
+      <Navigationbar />
       <div className="display">
         <RecruiterSidebar />
         <div className="absolute top-[155px] left-[500px] rounded-3xs bg-darkslategray box-border w-[941px] h-[600px] border-[2px] border-solid border-lightgoldenrodyellow bg-[#324c59] bg-opacity-60 relative" style={{borderRadius: '20px'}}>

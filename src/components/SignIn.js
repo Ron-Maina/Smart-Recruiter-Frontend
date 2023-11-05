@@ -1,15 +1,57 @@
 import React from 'react'
-import { useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 
 function SignIn({onLogin}) {
     const navigate = useNavigate() 
+    const [render, setRender] = useState(0)
+    const [recruiter, setRecruiter] = useState("")
+    const [interviewee, setInterviewee] = useState("") 
+
+    const [user, setUser] = useState("")
+
 
     const [Username, setusername] = useState("")
     const [Password, setPass] = useState("")
     const [url, setUrl] = useState("")
-    const [user, setUser] = useState("")
+   
+    useEffect(() => {
+        // 👇️ some condition here
+        if (Math.random() > 0.5) {
+          setRender(1);
+        }
+      }, [render]);
+
+    useEffect(() => {
+        fetch("/recruitersession")
+        .then((response) => {
+          if (response.ok) {
+            response.json()
+            .then((user) => setRecruiter(user));
+          } else{
+            console.log('Recruiter Session not found')
+          }
+        });
+      }, [render]);
+    
+      useEffect(() => {
+        fetch("/intervieweesession")
+        .then((response) => {
+          if (response.ok) {
+            response.json()
+            .then((user) => setInterviewee(user));
+          } else{
+            console.log('Interviewee Session not found')
+          }
+        });
+      }, [render]);
+
+    if(recruiter.role === 'recruiter'){
+        setUrl("/recruiterlogin")
+    }else if (interviewee.role === 'interviewee'){
+        setUrl("/intervieweelogin")
+    }
 
     function handleClick(user){
         if (user === 'recruiter'){
@@ -17,9 +59,11 @@ function SignIn({onLogin}) {
             setUrl("/recruiterlogin")
         }
         else if (user === 'interviewee'){
+            setUser(user)
             setUrl("/intervieweelogin")
         }
     }
+
 
     function handleSubmit(e){
         e.preventDefault()
@@ -74,8 +118,8 @@ function SignIn({onLogin}) {
                         <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('interviewee')}><span>Interviewee</span></h5>
                     </div>
                 </div>
-                <form onSubmit={handleSubmit} className='authentication-form' style={{marginTop: '60px'}}>
-                    <label htmlFor='username' className='input-label'><text>Username:</text></label>
+                <form onSubmit={handleSubmit} className='authentication-form'>
+                    <label htmlFor='username' className='input-label' id='input-label'><text>Username:</text></label>
                     <br/>
                     <input
                     className='authentication-input'
@@ -86,9 +130,8 @@ function SignIn({onLogin}) {
                     onChange={(e) => setusername(e.target.value)}
                     />
                     <br/>
-                    <br/>
                     
-                    <label htmlFor='password' className='input-label'><text>Password:</text></label>
+                    <label htmlFor='password' className='input-label'  id='input-label'><text>Password:</text></label>
                     <br/>
                     <input
                     className='authentication-input'
