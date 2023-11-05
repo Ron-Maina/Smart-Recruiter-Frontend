@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RecruiterSidebar from "./RecruiterSidebar";
+
 import Navigationbar from "./Navbar";
+
 
 function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
   const [interviewees, setInterviewees] = useState([]);
@@ -37,7 +39,9 @@ function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
   return (
     <div className="page">
       <div id="intervieweehomepage-bg"></div>
+
       <Navigationbar />
+
       <div className='display'>
         <RecruiterSidebar />
         <div className="content">
