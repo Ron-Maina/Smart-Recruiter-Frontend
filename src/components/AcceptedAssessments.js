@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
 import Intervieweesidebar from "./IntervieweeSidebar";
+import Navigationbar from "./Navbar";
 
-function IntervieweeAssessments() {
+function AcceptedAssessments() {
   const [assessments, setAssessments] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -26,6 +27,7 @@ function IntervieweeAssessments() {
           
         </Modal.Header>
         <Modal.Body>
+          <p>Assessment will begin immediately you click one of the buttons below</p>
           <div style={{display: 'flex', justifyContent: 'center', gap: '20px'}}>
           <Button variant="outline-success">Take Demo</Button>{' '}
           <Button variant="outline-success">Start Assessment</Button>{' '}
@@ -55,7 +57,8 @@ function IntervieweeAssessments() {
   return (
     <div className="page">
 
-      <div id="intervieweeassessments-bg"></div>
+      <div id="AcceptedAssessments-bg"></div>
+      <Navigationbar />
       <div className="display">
         <Intervieweesidebar />
         <div className="content" style={{ overflow: "auto" }}>
@@ -88,4 +91,4 @@ function IntervieweeAssessments() {
   );
 }
 
-export default IntervieweeAssessments;
+export default AcceptedAssessments;

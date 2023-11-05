@@ -1,5 +1,6 @@
 import React from "react";
 import Intervieweesidebar from "./IntervieweeSidebar";
+import Navigationbar from "./Navbar";
 
 
 function IntervieweeHome(){
@@ -7,6 +8,7 @@ function IntervieweeHome(){
     return(
       <div className='page'>
         <div id="intervieweehomepage-bg"></div>
+        <Navigationbar />
         <div className="display">
           <Intervieweesidebar />
           
