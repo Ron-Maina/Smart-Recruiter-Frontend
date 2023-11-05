@@ -84,31 +84,12 @@ function Recruiterfeedback({reviewing_id, username}) {
             </div>
           ))}
           
-
-            <h1 className="text-2xl font-semibold text-white p-4">{username}'s Assessment</h1>
-            {data.map((item, index) => (
-              <div key={index} className="p-4 m-4 bg-white rounded-lg shadow-md flex">
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold">{item.question}</h3>
-                  <p>{item.answer}</p>
-                </div>
-                <div className="flex-shrink-0">
-                  <p>Grade: {item.grade}</p>
-                </div>
-              </div>
-            ))}
-          
-
-
           <div className="bg-black p-4 rounded-lg m-4 text-white absolute bottom-0 w-[95%]">
             <form onSubmit={handleSubmit}>
               <textarea
                 value={feedback}
 
                 onChange={(e) => setFeedback(e.target.value)}
-
-                onChange={handleFeedbackChange}
-
                 placeholder="Provide your feedback here"
                 rows="5"
                 className="w-full p-2 rounded-md bg-gray-800 text-[#f3f0ca]"
