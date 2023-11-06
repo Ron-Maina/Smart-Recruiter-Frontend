@@ -1,12 +1,11 @@
 import React , {useEffect, useState} from 'react'
-import { Link } from "react-router-dom";
 import Intervieweesidebar from './IntervieweeSidebar'
 
 function ViewFeedback({intAssessmentsID}) {
-    const [feedbacks, setFeedback] = useState([])
+    const [feedback, setFeedback] = useState([])
 
     useEffect(() => {
-        fetch(`/intfeedback/3`)
+        fetch(`/intfeedback/1`)
         .then(res => res.json())
         .then(data => setFeedback(data))
     }, [])
@@ -14,29 +13,48 @@ function ViewFeedback({intAssessmentsID}) {
 
   return (
     <div className='page'>
-        <div id="intervieweehomepage-bg"></div>
-        <div className="display">
-          <Intervieweesidebar />
-          
-          <div className="content">
-          <h1 className="text-3xl font-bold text-white p-4 text-center">My Assessments</h1>
+      <div id="intervieweehomepage-bg"></div>
+      <div className="display">
+        <Intervieweesidebar />
+        
+        <div className="content">
+          <h1 className="text-3xl font-bold text-white p-4 text-center">Feedback</h1>
 
-        <div className="mx-4">
-            {feedbacks.map((feedback) => (
-            <Link to="/recruiterinterviewees" className= 'link_to'> 
-            <div key={feedback.id} className="p-4 bg-white rounded-lg mb-4" >
-                <h3 className="text-xl font-bold">Answer: {feedback.answer_text}</h3>
-                <p style={{fontSize: 'medium'}}>{feedback.grade} </p>
-                <p style={{fontSize: 'medium'}}>{feedback.feedback} </p>
-
-            </div>
-            </Link>
+          <div className="mx-4" style={{textAlign: 'left'}}>
+            <h2 key={feedback.assessment_id} style={{color: "white"}} className="text-xl font-bold"><span>Feedback: </span>{feedback.feedback}</h2>
+            
+            {feedback.questions?.map(response => (
+              <div key={response.question_id}>
+                <h5><span>Question: {response.question_text}</span></h5>
+                {response.question_type === "mcq" || response.question_type === "ft" ? (
+                  <div>
+                    {response.answers.map(answer => (
+                      <div style={{color: 'white'}}>
+                        <p key={answer.answer_id}>
+                          Answer: {answer.answer_text}
+                        </p>
+                        <p>Grade: {answer.grade}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : response.question_type === "kata" ? (
+                  <div>
+                    {response.whiteboard_submissions.map((submission) => (
+                      <div key={submission.submission_id} style={{color: 'white'}}>
+                        <p>Pseudocode: {submission.pseudocode}</p>
+                        <p>Code: {submission.code}</p>
+                        <p>Grade: {submission.grade}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>  
             ))}
-        </div>
           </div>
         </div>
-
       </div>
+
+    </div>
   )
 }
 

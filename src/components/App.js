@@ -28,7 +28,7 @@ function App() {
   const [reviewing_id, setReviewing_id] = useState([])
   const [username, setUsername] = useState('')
 
-  const [intAssessmentsID, setAssessments] = useState('')
+  const [assessmentFeedback, setAssessmentFeedback] = useState('')
 
 
   // useEffect(() => {
@@ -74,8 +74,8 @@ function App() {
     setUsername(username)
   }
 
-  function RenderQuestions(id){
-      setAssessments(id)
+  function RenderFeedback(id){
+    setAssessmentFeedback(id)
   }
 
   return (
@@ -87,8 +87,8 @@ function App() {
           <Route exact path='/signin' element={<SignIn onLogin={hanleLogin}/>} />
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
           <Route exact path='/acceptedassessments' element={<AcceptedAssessments />} />
-          <Route exact path='/myreviews' element={<MyReviews renderQuestions={RenderQuestions}/>} />
-          <Route exact path='/viewfeedback' element={<ViewFeedback intAssessmentsID={intAssessmentsID}/>} />
+          <Route exact path='/myreviews' element={<MyReviews renderFeedback={RenderFeedback}/>} />
+          <Route exact path='/viewfeedback' element={<ViewFeedback assessmentFeedback={assessmentFeedback}/>} />
 
 
           {/* <Route exact path='/demo' element={<Demo />} /> */}

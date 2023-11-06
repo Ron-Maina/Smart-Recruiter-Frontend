@@ -7,8 +7,14 @@ import Navigationbar from "./Navbar";
 
 function AcceptedAssessments() {
   const [assessments, setAssessments] = useState([]);
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [displayed, setDisplayed] = useState([]);
 
+
+  function handleClick(title){
+    setModalShow(true)
+    setDisplayed(title)
+  }
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -19,12 +25,9 @@ function AcceptedAssessments() {
         centered
       >
         <Modal.Header closeButton>
-          {assessments.map(assessment => (
             <Modal.Title id="contained-modal-title-vcenter">
-              {assessment.title}
+              {displayed}
             </Modal.Title>
-          ))}
-          
         </Modal.Header>
         <Modal.Body>
           <p>Assessment will begin immediately you click one of the buttons below</p>
@@ -57,7 +60,7 @@ function AcceptedAssessments() {
   return (
     <div className="page">
 
-      <div id="AcceptedAssessments-bg"></div>
+      <div id="intervieweeassessments-bg"></div>
       <Navigationbar />
       <div className="display">
         <Intervieweesidebar />
@@ -69,7 +72,7 @@ function AcceptedAssessments() {
         <div className="mx-4">
           {assessments?.map((assessment, index) => (
             <>
-              <div variant="primary" onClick={() => setModalShow(true)}>
+              <div variant="primary" onClick={() => handleClick(assessment.title)}>
                 <div key={index} className="p-4 bg-white rounded-lg mb-4">
                   <h2 className="text-xl font-bold">Assessment: {assessment.title}</h2>
                   <p>Duration: {assessment.duration} minutes</p>
