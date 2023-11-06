@@ -11,6 +11,7 @@ function MyReviews({ renderFeedback }) {
   const [selectedAssessment, setSelectedAssessment] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+
   const navigate = useNavigate()
 
   function handleToggle(viewMode) {
@@ -40,7 +41,6 @@ function MyReviews({ renderFeedback }) {
 
   function handleClick(assessment) {
     if (assessment.recruiter_status === 'reviewed') {
-      console.log(assessment.id)
       renderFeedback(assessment.id)
       navigate("/viewfeedback", {replace: true});
     } else {
@@ -105,4 +105,6 @@ function MyReviews({ renderFeedback }) {
   );
 }
 
+
 export default MyReviews;
+

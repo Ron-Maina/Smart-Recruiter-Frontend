@@ -21,7 +21,7 @@ function App() {
   const [recruiter, setRecruiter] = useState("")
   const [interviewee, setInterviewee] = useState("") 
   
-  const [intAssessmentsID, setIntAssessmentId] = useState('')
+  const [assessmentFeedback, setAssessmentFeedback] = useState('')
  
   
 
@@ -37,6 +37,7 @@ function App() {
   function userRole(user){
     setRole(user)
   }
+
 
   useEffect(() => {
     fetch("/recruitersession")
@@ -77,7 +78,8 @@ function App() {
   }
 
   function renderFeedback(id){
-    setIntAssessmentId(id)
+    setAssessmentFeedback(id)
+
   }
 
   return (
@@ -89,8 +91,10 @@ function App() {
           <Route exact path='/signin' element={<SignIn client={client} onLogin={LoggedUser}/>} />
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
           <Route exact path='/acceptedassessments' element={<AcceptedAssessments />} />
+
           <Route exact path='/myreviews' element={<MyReviews renderFeedback={renderFeedback}/>} />
-          <Route exact path='/viewfeedback' element={<ViewFeedback intAssessmentsID={intAssessmentsID}/>} />
+          <Route exact path='/viewfeedback' element={<ViewFeedback assessmentFeedback={assessmentFeedback}/>} />
+
 
 
           {/* <Route exact path='/demo' element={<Demo />} /> */}
