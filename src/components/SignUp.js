@@ -5,21 +5,23 @@ import * as yup from 'yup'
 import {Button} from 'react-bootstrap';
 
 
-function SignUp() {
+function SignUp({onSignUp}) {
     const navigate = useNavigate()
     const [refreshPage, setRefreshPage] = useState(false);
     const [url, setUrl] = useState("")
     
     function loginPage(){
-        navigate("/login")
+        navigate("/signin")
     }
 
     function handleClick(user){
         if (user === 'recruiter'){
-            setUrl("/recruiterlogin")
+            onSignUp(user)
+            setUrl("/recruitersignup")
         }
         else if (user === 'interviewee'){
-            setUrl("/intervieweelogin")
+            onSignUp(user)
+            setUrl("/intervieweesignup")
         }
     }
 
@@ -66,13 +68,13 @@ function SignUp() {
                 <h4 className='top-right'><span>SIGN UP</span></h4>
             </div>
             <div className='authentication'>
-            <div style={{textAlign: 'center', marginTop: '0px'}}><span>Sign Up As:</span>
+            <div style={{textAlign: 'center'}}><span>Sign Up As:</span>
                     <div className= "user-options">
                         <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('recruiter')}><text>Recruiter</text></h5>
                         <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('interviewee')}><span>Interviewee</span></h5>
                     </div>
                 </div>
-                <form onSubmit={formik.handleSubmit} className='authentication-form' style={{marginTop: '50px'}}>
+                <form onSubmit={formik.handleSubmit} className='authentication-form'>
                 <label htmlFor="username" className='input-label'><text>Username:</text></label>
                     <br />
                     <input
@@ -117,7 +119,6 @@ function SignUp() {
                     <label htmlFor="password" className='input-label'> <text>Password:</text></label>
                     <br />
                     <input
-                    style={{width: '300px', height: '30px'}}
                     className='authentication-input'
                     autoComplete="off"
                     id="password"

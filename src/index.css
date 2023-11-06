@@ -98,7 +98,7 @@ code {
 
 .authentication {
   position: relative;
-  height:600px;
+  height:700px;
   padding: 20px;
   margin-left: 25%;
   margin-right: 25%;
@@ -108,15 +108,16 @@ code {
   text-align: center;
 }
 .authentication-form{
-  margin-top: 80px;
+  /* margin-top: 80px; */
   
 }
 .authentication-input {
   width: 300px;
   height: 30px;
+ 
 }
 .input-label {
-  margin-top: 100px;
+  margin-top: 20px;
 }
 span{
   color: lightgoldenrodyellow;
@@ -138,13 +139,7 @@ text{
   overflow: hidden;
   display: flex;
   column-gap: -50px;
-  /* display: table; */
-  /* display: grid;
-  grid-gap: 2%;
-  grid-auto-flow: column;
-  width: 100%;
-  grid-template-columns: 10fr, 10fr; */
   justify-content: center; 
-  /* background-color: #E3E3E3; */
+
 }
 

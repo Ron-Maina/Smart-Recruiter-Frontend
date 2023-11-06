@@ -19,7 +19,44 @@ function App() {
   const [assessment_id, setAssessment_id] = useState("")
   const [reviewing_id, setReviewing_id] = useState([])
   const [username, setUsername] = useState('')
+  const [role, setRole] = useState('')
+  const [client, setUser] = useState('')
+  const [loggedUser, setLoggedUser] = useState('')
 
+
+
+  function userRole(user){
+    setRole(user)
+  }
+
+  useEffect(() => {
+    fetch("/recruitersession")
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((user) => setUser(user));
+      } else{
+        console.log('Session not found')
+      }
+    });
+  }, [role, loggedUser]);
+
+  useEffect(() => {
+    fetch("/intervieweesession")
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((user) => setUser(user));
+      } else{
+        console.log('Session not found')
+      }
+    });
+  }, [role, loggedUser]);
+
+  function LoggedUser(user){
+    console.log(user)
+    setLoggedUser(user)
+  }
 
   function handleRender(id){
     setAssessment_id(id)
@@ -35,8 +72,8 @@ function App() {
       <div>
         <Routes>
           <Route path='/' element={<Landingpage />} />
-          <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/signin' element={<SignIn />} />
+          <Route exact path='/signup' element={<SignUp onSignUp={userRole}/>} />
+          <Route exact path='/signin' element={<SignIn client={client} onLogin={LoggedUser}/>} />
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
           <Route exact path='/intervieweeassessments' element={<IntervieweeAssessments />} />
           <Route exact path='/feedback' element={<IntervieweeReviewed />} />
