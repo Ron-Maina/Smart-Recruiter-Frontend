@@ -12,6 +12,7 @@ function SignUp({onSignUp}) {
     
     function loginPage(){
         navigate("/signin")
+        navigate("/signin")
     }
 
     function handleClick(user){
@@ -22,7 +23,9 @@ function SignUp({onSignUp}) {
         else if (user === 'interviewee'){
             onSignUp(user)
             setUrl("/intervieweesignup")
+
         }
+
     }
 
     const formSchema = yup.object().shape({
@@ -67,14 +70,18 @@ function SignUp({onSignUp}) {
                 <h4 className='top-left'><span>SMART</span> <text>RECRUITOR</text></h4>
                 <h4 className='top-right'><span>SIGN UP</span></h4>
             </div>
+
             <div className='authentication'>
             <div style={{textAlign: 'center'}}><span>Sign Up As:</span>
+
                     <div className= "user-options">
                         <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('recruiter')}><text>Recruiter</text></h5>
                         <h5 style={{paddingTop: '20px'}} onClick={() => handleClick('interviewee')}><span>Interviewee</span></h5>
                     </div>
                 </div>
+
                 <form onSubmit={formik.handleSubmit} className='authentication-form'>
+
                 <label htmlFor="username" className='input-label'><text>Username:</text></label>
                     <br />
                     <input
@@ -108,6 +115,8 @@ function SignUp({onSignUp}) {
                     <input
                     className='authentication-input'
                     autoComplete="off"
+                    max={12}
+                    min={12}
                     id="number"
                     name="number"
                     onChange={formik.handleChange}

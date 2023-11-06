@@ -28,20 +28,20 @@ function SignIn({ onLogin, client }) {
         setUrl('/intervieweelogin');
       }
     }
-  
-    function handleSubmit(e) {
-      e.preventDefault();
-      const userDetails = {
-        username: Username,
-        password: Password,
-      };
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userDetails),
-      })
+
+    function handleSubmit(e){
+        e.preventDefault()
+        const userDetails = {
+            "username": Username,
+            "password": Password,
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userDetails),
+        })
         .then((response) => {
           if (!response.ok) {
             alert('Invalid Username or Password');
@@ -118,7 +118,8 @@ function SignIn({ onLogin, client }) {
                 <label><span>Show Password</span></label>
                 </div>
             </form>
-       
+            <br/>
+        <Link to ='/signup' className='link_to'><span>Create new Account?</span></Link>
         </div>
     </div>
     );
