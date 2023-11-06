@@ -20,49 +20,52 @@ import CreateAssessment from './CreateAssessment';
 function App() {
   const [recruiter, setRecruiter] = useState("")
   const [interviewee, setInterviewee] = useState("") 
-  // const [auth, setAuth] = useState("")
+  
+  const [assessmentFeedback, setAssessmentFeedback] = useState('')
  
   
 
   const [assessment_id, setAssessment_id] = useState("")
   const [reviewing_id, setReviewing_id] = useState([])
   const [username, setUsername] = useState('')
-
-  const [assessmentFeedback, setAssessmentFeedback] = useState('')
-
-
-  // useEffect(() => {
-  //   fetch("/recruitersession")
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       response.json()
-  //       .then((user) => setRecruiter(user));
-  //     } else{
-  //       console.log('Recruiter Session not found')
-  //     }
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch("/intervieweesession")
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       response.json()
-  //       .then((user) => setInterviewee(user));
-  //     } else{
-  //       console.log('Interviewee Session not found')
-  //     }
-  //   });
-  // }, []);
+  const [role, setRole] = useState('')
+  const [client, setUser] = useState('')
+  const [loggedUser, setLoggedUser] = useState('')
 
 
-  function hanleLogin(user){
-     if (user.role === 'recruiter'){
-      setRecruiter(user)
-     }
-     else if (user.role === 'interviewee'){
-      setInterviewee(user)
-     }
+
+  function userRole(user){
+    setRole(user)
+  }
+
+
+  useEffect(() => {
+    fetch("/recruitersession")
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((user) => setUser(user));
+      } else{
+        console.log('Session not found')
+      }
+    });
+  }, [role, loggedUser]);
+
+  useEffect(() => {
+    fetch("/intervieweesession")
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((user) => setUser(user));
+      } else{
+        console.log('Session not found')
+      }
+    });
+  }, [role, loggedUser]);
+
+  function LoggedUser(user){
+    console.log(user)
+    setLoggedUser(user)
   }
 
   function handleRender(id){
@@ -74,8 +77,9 @@ function App() {
     setUsername(username)
   }
 
-  function RenderFeedback(id){
+  function renderFeedback(id){
     setAssessmentFeedback(id)
+
   }
 
   return (
@@ -83,12 +87,14 @@ function App() {
       <div>
         <Routes>
           <Route path='/' element={<Landingpage />} />
-          <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/signin' element={<SignIn onLogin={hanleLogin}/>} />
+          <Route exact path='/signup' element={<SignUp onSignUp={userRole}/>} />
+          <Route exact path='/signin' element={<SignIn client={client} onLogin={LoggedUser}/>} />
           <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
           <Route exact path='/acceptedassessments' element={<AcceptedAssessments />} />
-          <Route exact path='/myreviews' element={<MyReviews renderFeedback={RenderFeedback}/>} />
+
+          <Route exact path='/myreviews' element={<MyReviews renderFeedback={renderFeedback}/>} />
           <Route exact path='/viewfeedback' element={<ViewFeedback assessmentFeedback={assessmentFeedback}/>} />
+
 
 
           {/* <Route exact path='/demo' element={<Demo />} /> */}

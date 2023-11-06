@@ -1,11 +1,12 @@
 import React , {useEffect, useState} from 'react'
 import Intervieweesidebar from './IntervieweeSidebar'
 
-function ViewFeedback({intAssessmentsID}) {
+function ViewFeedback({assessmentFeedback}) {
+
     const [feedback, setFeedback] = useState([])
 
     useEffect(() => {
-        fetch(`/intfeedback/1`)
+        fetch(`/intfeedback/${assessmentFeedback}`)
         .then(res => res.json())
         .then(data => setFeedback(data))
     }, [])

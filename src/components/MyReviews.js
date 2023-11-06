@@ -11,6 +11,9 @@ function MyReviews({ renderFeedback }) {
   const [selectedAssessment, setSelectedAssessment] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+
+  const navigate = useNavigate()
+
   function handleToggle(viewMode) {
     if (viewMode === "reviewed") {
       setApiUrl("/reviewedassessments");
@@ -39,7 +42,7 @@ function MyReviews({ renderFeedback }) {
   function handleClick(assessment) {
     if (assessment.recruiter_status === 'reviewed') {
       renderFeedback(assessment.id)
-      window.location.href = `/viewfeedback`;
+      navigate("/viewfeedback", {replace: true});
     } else {
       setSelectedAssessment(assessment);
       setShowModal(true);
@@ -102,4 +105,6 @@ function MyReviews({ renderFeedback }) {
   );
 }
 
+
 export default MyReviews;
+

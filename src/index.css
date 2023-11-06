@@ -169,7 +169,7 @@ hr{
 
 .authentication {
   position: relative;
-  height:600px;
+  height:700px;
   padding: 20px;
   margin-left: 25%;
   margin-right: 25%;
@@ -179,24 +179,20 @@ hr{
   text-align: center;
 }
 .authentication-form{
-  margin-top: 10px;
+
+  /* margin-top: 80px; */
+  
+
 }
 .authentication-input {
   width: 300px;
   height: 30px;
+ 
 }
-.input-label{
-  /* margin-top: 50px; */
-  font-size: 1em;
-  text-transform: uppercase;
-  /* padding-top: 5px; */
-  text-align: center;
-}
-#input-label{
-   margin-top: 50px;
-   font-size: 1em;
-   text-transform: uppercase;
-   text-align: center;
+
+.input-label {
+  margin-top: 20px;
+
 }
 span{
   color: lightgoldenrodyellow;
