@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import Navigationbar from "./Navbar";
+import Playground from "./Playground";
 
 function Demo() {
     const [demo, setDemo] = useState({})
@@ -29,7 +30,7 @@ function Demo() {
                     value={userCode}
                     onChange={(e) => setUserCode(e.target.value)}
                 ></textarea> */}
-                
+                <Playground />
             </div>
         </div>    
     </div>   
