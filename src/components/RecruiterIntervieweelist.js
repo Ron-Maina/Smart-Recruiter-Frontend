@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RecruiterSidebar from "./RecruiterSidebar";
 
 import Navigationbar from "./Navbar";
 
 
 function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
+  const navigate = useNavigate()
   const [interviewees, setInterviewees] = useState([]);
   const [viewMode, setViewMode] = useState("pending"); // Default to pending view
 
@@ -34,6 +35,9 @@ function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
 
   function handleClick(interviewee_id, assessment_id, username){
     onRenderQuestions(interviewee_id, assessment_id, username)
+    if (viewMode === 'pending'){
+      navigate("/recruiterfeedback", {replace: true});
+    } 
   }
 
   return (
@@ -46,7 +50,7 @@ function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
         <RecruiterSidebar />
         <div className="content">
         {/* Title (moved outside the dark background div) */}
-        <h1 className="text-3xl font-bold text-[#f3f0ca] p-4 text-center">Interviewee List</h1>
+        <h1 className="text-3xl font-bold text-[#f3f0ca] p-4 text-center">Interviewees</h1>
 
         {/* Toggle button to switch between pending and reviewed view */}
         <div className="text-left p-4" style={{textAlign: 'center'}}>
@@ -54,7 +58,7 @@ function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
             className="bg-[#f3f0ca] rounded-md px-4 py-2"
             onClick={() => setViewMode("pending")}
           >
-            Show Pending
+            Pending Review
           </button>
           <button
             className="bg-[#f3f0ca] rounded-md px-4 py-2 ml-2"
@@ -67,15 +71,15 @@ function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
         {/* Display interviewees for the assessment based on the view mode */}
         <div className="mx-4">
           {interviewees.map((interviewee, index) => (
-            <Link to = '/recruiterfeedback' className="link_to">
-              <div key={index} className="p-4 bg-white rounded-lg mb-4" onClick={() => handleClick(interviewee.id, interviewee.assessment_id, interviewee.username)}>
-                <h2 className="text-xl font-bold">{interviewee.username}</h2>
-                <p>Email: {interviewee.email}</p>
-                <div className="flex-shrink-0">
-                  <p>Grade: {interviewee.score}</p>
-                </div>
+     
+            <div key={index} className="p-4 bg-white rounded-lg mb-4" onClick={() => handleClick(interviewee.id, interviewee.assessment_id, interviewee.username)}>
+              <h2 className="text-xl font-bold">{interviewee.username}</h2>
+              <p>Email: {interviewee.email}</p>
+              <div className="flex-shrink-0">
+                <p>Grade: {interviewee.score}</p>
               </div>
-            </Link>
+            </div>
+      
           ))}
         </div>
         </div>
