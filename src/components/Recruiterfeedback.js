@@ -58,7 +58,7 @@ function Recruiterfeedback({reviewing_id, username}) {
         
 
           <h1 className="text-2xl font-semibold text-white p-4">{username}'s Assessment</h1>
-          {mcqFtdata.map((item, index) => (
+          {mcqFtdata?.map((item, index) => (
             <div key={index} className="p-4 m-4 bg-white rounded-lg shadow-md flex">
               <div className="flex-1">
                 <h3 className="text-xl font-semibold">Question: {item.question}</h3>
@@ -70,7 +70,7 @@ function Recruiterfeedback({reviewing_id, username}) {
             </div>
           ))}
 
-          {kataData.map((item, index) => (
+          {kataData?.map((item, index) => (
             <div key={index} className="p-4 m-4 bg-white rounded-lg shadow-md flex">
               <div className="flex-1">
                 <h3 className="text-xl font-semibold">Question: {item.question}</h3>

@@ -28,11 +28,11 @@ function RecruiterSidebar(){
               
 
               <NavLink to="/recruiterassessments">
-              <div>Assessments</div>
+              <div> Assessments</div>
               </NavLink>
 
-              <NavLink to="/recruiterassessments">
-              <div>Reviewes</div>
+              <NavLink to="/newassessment">
+              <div>Create Assessment</div>
               </NavLink>
 
              

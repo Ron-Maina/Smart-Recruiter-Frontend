@@ -26,7 +26,7 @@ function Intervieweesidebar(){
               
 
               <NavLink to="/acceptedassessments">
-              <div>Assessments</div>
+              <div>My Assessments</div>
               </NavLink>
 
               <NavLink to="/myreviews">

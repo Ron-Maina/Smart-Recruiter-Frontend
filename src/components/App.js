@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import RecruiterHome from './RecruiterHome';
 import IntervieweeHome from './IntervieweeHome';
 import Landingpage from './Landingpage';
 import Recruiterfeedback from './Recruiterfeedback';
@@ -103,7 +102,6 @@ function App() {
           {/* <Route exact path='/feedback' element={<IntervieweeReviewed />} /> */}
 
 
-          <Route exact path='/recruiterhomepage' element={<RecruiterHome />} />
           <Route exact path='/recruiterfeedback' element={<Recruiterfeedback reviewing_id={reviewing_id} username={username}/>} />
           <Route exact path='/recruiterassessments' element={<RecruiterAssessments onrender={handleRender} />} />
           <Route exact path='/recruiterinterviewees' element={<RecruiterIntervieweelist assessment_id={assessment_id} onRenderQuestions={renderQuestions}/>} />
