@@ -1,93 +1,123 @@
 import React, { useEffect, useState } from 'react';
 import Navigationbar from './Navbar';
 import { Link } from "react-router-dom";
-import { Button, Modal, Form, InputGroup, FormControl, FormCheck, FormLabel } from 'react-bootstrap';
+import { Button, Modal, Form, InputGroup, FormControl, FormCheck} from 'react-bootstrap';
+import useLocalStorage from './useLocalStorage';
 
 function AssessmentPage({ assessment, client}) {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
-  const [remainingTime, setRemainingTime] = useState(0);
+  const [remainingTime, setRemainingTime] = useLocalStorage('remainingTime', 0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const time = assessment.duration
 
   useEffect(() => {
-    // Fetch questions for the given assessment ID
-    fetch(`/questions/${assessment.id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setQuestions(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-
-    // Start the countdown when the component mounts
-    if (remainingTime === 0) {
-      setRemainingTime(assessment.duration * 60); // 120 minutes
+    // Check if the assessment data is already in local storage
+    const storedAssessment = localStorage.getItem('assessment');
+    if (storedAssessment) {
+      setQuestions(JSON.parse(storedAssessment));
+    } else {
+      fetch(`/questions/${assessment.id}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setQuestions(data);
+          // Store the assessment data in local storage
+          localStorage.setItem('assessment', JSON.stringify(data));
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
     }
-  }, []);
+    }, [])
 
-  useEffect(() => {
-    // Countdown timer
-    const countdownInterval = setInterval(() => {
-      if (remainingTime > 0) {
-        setRemainingTime(remainingTime - 1);
-      }
-    }, 1000);
+    useEffect(() => {
+        // Countdown timer
+        const countdownInterval = setInterval(() => {
+          if (remainingTime > 0) {
+            setRemainingTime(remainingTime - 1);
+          } else if (remainingTime === 0){
+            handleModalSubmit()
+          }
+        }, 1000);
+    
+        // Clear the interval when the component unmounts
+        return () => {
+          clearInterval(countdownInterval);
+        };
+    }, [remainingTime, setRemainingTime]);
 
-    // Clear the interval when the component unmounts
-    return () => clearInterval(countdownInterval);
-  }, [remainingTime]);
+    function postAnswers() {
+        const data = {
+        intervieweeId: client.id,
+        answers: [],
+        };
 
-  function postAnswers() {
-    const data = {
-      intervieweeId: client.id,
-      answers: [],
-    };
+        questions.forEach((question) => {
+            if (question.type === 'mcq' || question.type === 'ft'){
+                const questionId = `question_${question.id}`;
+                const answer = answers[questionId];
+                const grade = answer === question.solution ? 100 : 0;
 
-    questions.forEach((question) => {
-      const questionId = `question_${question.id}`;
-      const answer = answers[questionId];
-      const grade = answer === question.solution ? 100 : 0;
+                data.answers.push({
+                    questionId: question.id,
+                    grade,
+                    answer,
+                });
+            }
 
-      data.answers.push({
-        questionId: question.id,
-        grade,
-        answer,
-      });
-    });
-
-    console.log(data)
-
-    // Determine the endpoint based on the question type
-    const endpoint = assessment.type === 'mcq' || assessment.type === 'ft' ? '/answers' : '/whiteboard';
-
-    fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then((response) => {
-        response.json()
-    // if (!response.ok) {
-    //     return response.json().then((data) => {
-    //     // Handle error
-    //     });
-    // }
-    })
-    .then(data => console.log(data))
-    .catch((error) => {
-    console.error("Error posting answers:", error);
-    });
-  }
+            
+            if (question.type === 'mcq' || question.type === 'ft'){
+                fetch('/answers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then((response) => {
+                    response.json()
+                })
+                .then(data => console.log(data))
+                .catch((error) => {
+                console.error("Error posting answers:", error);
+                });
+            }
+            else if (question.type === 'kata') {
+                const kataData = {
+                    "interviewee_id": client.id,
+                    "question_id": question.id,
+                    "pseudocode": answers[`pseudocode_${question.id}`],
+                    "code": answers[`code_${question.id}`],
+                    "grade": answers[`code_${question.id}`] === question.solution ? 100 : 0
+                };
+        
+                fetch('/whiteboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(kataData),
+                })
+                .then((response) => {
+                    response.json();
+                })
+                .then((data) => console.log(data))
+                .catch((error) => {
+                console.error("Error posting kata answers:", error);
+                });
+            }
+        });
+        
+    }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -95,29 +125,58 @@ function AssessmentPage({ assessment, client}) {
   };
 
   const handleModalSubmit = () => {
-    postAnswers();
 
-    // Display loading spinner
-    setIsLoading(true);
-
-    // Simulate API call for scoring (replace with actual API call)
-    setTimeout(() => {
-      let total = 0;
-      questions.forEach((question) => {
+    for (const question of questions) {
         const answer = answers[`question_${question.id}`];
-        if (answer === question.solution) {
-          total += 1;
+  
+        if (!answer) {
+            setErrorMessage('Please answer all questions before submitting.')
+
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 3000);
+            return;
+
+        } else {
+            postAnswers();
+            setIsSubmitting(true);
+            
+            setTimeout(() => {
+            let total = 0;
+            questions.forEach((question) => {
+                const answer = answers[`question_${question.id}`];
+
+                if (question.type === 'kata') {
+                    const userCode = answers[`code_${question.id}`];
+                    if (userCode === question.solution) {
+                    total += 1;
+                    }
+                } else {
+                    if (answer === question.solution) {
+                    total += 1;
+                    }
+                }
+                });
+                
+
+            // Calculate the total score
+            const averageScore = (total / questions.length) * 100;
+            setTotalScore(Math.round(averageScore));
+
+            // Hide loading spinner and show results
+            setIsSubmitting(false);
+            setShowModal(true);
+            }, 2000); // Simulated 2-second delay
         }
-      });
+    }
 
-      // Calculate the total score
-      const averageScore = (total / questions.length) * 100;
-      setTotalScore(Math.round(averageScore));
+    
+  };
 
-      // Hide loading spinner and show results
-      setIsLoading(false);
-      setShowModal(true);
-    }, 2000); // Simulated 2-second delay
+  const resetCountdown = () => {
+    // Reset the countdown to its initial value
+    setRemainingTime(time*60);
+    setShowModal(false); // Close the modal
   };
 
   // Helper function to format time as hours and minutes
@@ -144,6 +203,7 @@ function AssessmentPage({ assessment, client}) {
                   question.choices.split(',').map((choice, choiceIndex) => (
                     <div key={choiceIndex}>
                       <FormCheck
+                        required
                         style={{ color: 'white' }}
                         type="radio"
                         name={`question_${question.id}`}
@@ -157,19 +217,32 @@ function AssessmentPage({ assessment, client}) {
                 ) : question.type === 'ft' ? (
                   <InputGroup className="mb-3">
                     <FormControl
-                      type="text"
-                      name={`question_${question.id}`}
-                      onChange={handleInputChange}
+                        required
+                        type="text"
+                        name={`question_${question.id}`}
+                        onChange={handleInputChange}
                     />
                   </InputGroup>
                 ) : question.type === 'kata' ? (
+                <>
                   <Form.Group>
                     <Form.Control
-                      as="textarea"
-                      name={`question_${question.id}`}
-                      onChange={handleInputChange}
+                        required
+                        as="textarea"
+                        name={`pseudocode_${question.id}`}
+                        onChange={handleInputChange}
                     />
                   </Form.Group>
+                  <br></br>
+                  <Form.Group>
+                    <Form.Control
+                        required
+                        as="textarea"
+                        name={`code_${question.id}`}
+                        onChange={handleInputChange}
+                    />
+                  </Form.Group>
+                </>
                 ) : null}
                 <br></br>
               </div>
@@ -178,43 +251,72 @@ function AssessmentPage({ assessment, client}) {
               Submit
             </Button>
 
+            {errorMessage && (
+                <div className="message" style={{ color:'red' }}>
+                    {errorMessage}
+                </div>
+            )}
+
+            {isSubmitting && (
+                <div className="text-center spinner-container">
+                <div className="spinner-border" role="status" style={{color: 'lightgoldenrodyellow'}}>
+                    <span className="sr-only">Loading...</span>
+                </div>
+                </div>
+            )}
+
             <Modal show={showModal} centered backdrop="static">
-              <Modal.Header>
-                <Modal.Title>Assessment Results</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {isLoading ? (
-                  <div className="text-center">
-                    <div className="spinner-border" role="status">
-                      <span className="sr-only">Loading...</span>
+                <Modal.Header>
+                    <Modal.Title>Assessment Results</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        {questions.map((question, index) => (
+                        <div key={question.id}>
+                            <p>Q{index + 1}: {question.question}</p>
+                            {question.type === 'kata' ? (
+                            <>
+                                <p>Pseudocode: {answers[`pseudocode_${question.id}`]}</p>
+                                <p>Code: {answers[`code_${question.id}`]}</p>
+                                {answers[`code_${question.id}`] === question.solution ? (
+                                <>
+                                    <p>Your code: {answers[`code_${question.id}`]}</p>
+                                    <p>Score: 100%</p>
+                                </>
+                                ) : (
+                                <>
+                                    <p>Your code: {answers[`code_${question.id}`]}</p>
+                                    <p>Score: 0%</p>
+                                </>
+                                )}
+                            </>
+                            ) : (
+                            <>
+                                <p>Your answer: {answers[`question_${question.id}`]}</p>
+                                {answers[`question_${question.id}`] === question.solution ? (
+                                <>
+                                    <p>Score: 100%</p>
+                                </>
+                                ) : (
+                                <>
+                                    <p>Score: 0%</p>
+                                </>
+                                )}
+                            </>
+                            )}
+                        </div>
+                        ))}
+                        <p>Total Score: {totalScore}%</p>
                     </div>
-                  </div>
-                ) : (
-                  <div>
-                    {questions.map((question, index) => (
-                      <div key={question.id}>
-                        <p>Q{index + 1}: {question.question}</p>
-                        {answers[`question_${question.id}`] === question.solution ? (
-                          <>
-                            <p>Your answer: {answers[`question_${question.id}`]}</p>
-                            <p>Score: 100%</p>
-                          </>
-                        ) : (
-                          <>
-                            <p>Your answer: {answers[`question_${question.id}`]}</p>
-                            <p>Score: 0%</p>
-                          </>
-                        )}
-                      </div>
-                    ))}
-                    <p>Total Score: {totalScore}%</p>
-                  </div>
-                )}
-              </Modal.Body>
-              <Modal.Footer closeButton>
-                <Link to='/acceptedassessments'><Button>Close</Button></Link>
-              </Modal.Footer>
+                  
+                </Modal.Body>
+                <Modal.Footer>
+                    <Link to="/acceptedassessments">
+                    <Button onClick={resetCountdown}>Close</Button>
+                    </Link>
+                </Modal.Footer>
             </Modal>
+
           </div>
         </div>
       </div>
