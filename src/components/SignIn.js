@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 function SignIn({ onLogin }) {
   const navigate = useNavigate();
-  const [Username, setusername] = useState('');
+  const [email, setemail] = useState('');
   const [Password, setPass] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState(''); // State to manage the disappearing message
@@ -12,7 +12,7 @@ function SignIn({ onLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
     const userDetails = {
-      username: Username,
+      email: email,
       password: Password,
     };
     fetch('/login', {
@@ -26,7 +26,7 @@ function SignIn({ onLogin }) {
         if (!response.ok) {
           return response.json().then((data) => {
             setMessage(data.message); // Display error message in the authentication div
-            setusername('');
+            setemail('');
             setPass('');
           });
         } else {
@@ -41,14 +41,14 @@ function SignIn({ onLogin }) {
                 }, 2000); // Redirect after 2 seconds
               } else if (user.role === 'interviewee') {
                 setTimeout(() => {
-                  navigate('/intervieweehomepage', { replace: true });
+                  navigate('/acceptedassessments', { replace: true });
                   onLogin(user);
                 }, 2000); // Redirect after 2 seconds
               }
             }
             else{
               setMessage('SignIn Failed')
-              setusername('')
+              setemail('')
               setPass('')
             }  
           });
@@ -82,7 +82,7 @@ function SignIn({ onLogin }) {
         )}
         <form onSubmit={handleSubmit} className="authentication-form" style={{ marginTop: '60px' }}>
           <label htmlFor="username" className="input-label">
-            <text>Username:</text>
+            <text>Email:</text>
           </label>
           <br />
           <input
@@ -90,8 +90,8 @@ function SignIn({ onLogin }) {
             name="username"
             required
             type="text"
-            value={Username}
-            onChange={(e) => setusername(e.target.value)}
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
           />
           <br />
           <br />
