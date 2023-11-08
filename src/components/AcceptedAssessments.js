@@ -76,7 +76,8 @@ function AcceptedAssessments() {
                 <div key={index} className="p-4 bg-white rounded-lg mb-4">
                   <h2 className="text-xl font-bold">Assessment: {assessment.title}</h2>
                   <p>Duration: {assessment.duration} minutes</p>
-                  <p>Link: <Link to = '/' className="link_to">{assessment.link}</Link></p>
+                  <p>Date: {assessment.time}</p>
+                  <p>Link:{assessment.link}</p>
                 </div>
                 </div>
 
