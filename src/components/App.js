@@ -4,13 +4,13 @@ import {useEffect, useState} from "react";
 import { Route, Routes } from "react-router-dom"
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import IntervieweeHome from './IntervieweeHome';
 import Landingpage from './Landingpage';
 import Recruiterfeedback from './Recruiterfeedback';
 import RecruiterAssessments from './RecruiterAssessments';
 import RecruiterIntervieweelist from './RecruiterIntervieweelist';
 import AcceptedAssessments from './AcceptedAssessments';
 import ViewFeedback from './ViewFeedback';
+import AssessmentPage from './AssessmentPage';
 
 import MyReviews from './MyReviews.js';
 import CreateAssessment from './CreateAssessment';
@@ -19,11 +19,11 @@ import CreateAssessment from './CreateAssessment';
 function App() {
   const [recruiter, setRecruiter] = useState("")
   const [interviewee, setInterviewee] = useState("") 
+  const [assessment, setAssessment] = useState("") 
+
   
   const [assessmentFeedback, setAssessmentFeedback] = useState('')
  
-  
-
   const [assessment_id, setAssessment_id] = useState("")
   const [reviewing_id, setReviewing_id] = useState([])
   const [username, setUsername] = useState('')
@@ -71,6 +71,10 @@ function App() {
     setAssessment_id(id)
   }
 
+  function renderAssessment(assessment){
+    setAssessment(assessment)
+  }
+
   function renderQuestions(interviewee_id, assessment_id, username){
     setReviewing_id([assessment_id, interviewee_id])
     setUsername(username)
@@ -88,8 +92,9 @@ function App() {
           <Route path='/' element={<Landingpage />} />
           <Route exact path='/signup' element={<SignUp onSignUp={userRole}/>} />
           <Route exact path='/signin' element={<SignIn client={client} onLogin={LoggedUser}/>} />
-          <Route exact path='/intervieweehomepage' element={<IntervieweeHome />} />
-          <Route exact path='/acceptedassessments' element={<AcceptedAssessments />} />
+          <Route exact path='/acceptedassessments' element={<AcceptedAssessments onrenderAssessment={renderAssessment}/>} />
+          <Route exact path='/assessmentpage' element={<AssessmentPage assessment={assessment} client={client}/>} />
+
 
           <Route exact path='/myreviews' element={<MyReviews renderFeedback={renderFeedback}/>} />
           <Route exact path='/viewfeedback' element={<ViewFeedback assessmentFeedback={assessmentFeedback}/>} />

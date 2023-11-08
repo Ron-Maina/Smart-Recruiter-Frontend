@@ -5,16 +5,21 @@ import { Link } from "react-router-dom";
 import Intervieweesidebar from "./IntervieweeSidebar";
 import Navigationbar from "./Navbar";
 
-function AcceptedAssessments() {
+function AcceptedAssessments({onrenderAssessment}) {
   const [assessments, setAssessments] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [displayed, setDisplayed] = useState([]);
 
 
-  function handleClick(title){
+  function handleClick(assessment){
     setModalShow(true)
-    setDisplayed(title)
+    setDisplayed(assessment)
   }
+
+  function viewAssessment(assessment){
+    onrenderAssessment(assessment)
+  }
+
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -26,14 +31,14 @@ function AcceptedAssessments() {
       >
         <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              {displayed}
+              {displayed.title}
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Assessment will begin immediately you click one of the buttons below</p>
           <div style={{display: 'flex', justifyContent: 'center', gap: '20px'}}>
           <Button variant="outline-success">Take Demo</Button>{' '}
-          <Button variant="outline-success">Start Assessment</Button>{' '}
+          <Link to= '/assessmentpage'><Button variant="outline-success" onClick={() => viewAssessment(displayed)}>Start Assessment</Button>{' '}</Link>
           </div>
         </Modal.Body>
       </Modal>
@@ -72,7 +77,7 @@ function AcceptedAssessments() {
         <div className="mx-4">
           {assessments?.map((assessment, index) => (
             <>
-              <div variant="primary" onClick={() => handleClick(assessment.title)}>
+              <div variant="primary" onClick={() => handleClick(assessment)}>
                 <div key={index} className="p-4 bg-white rounded-lg mb-4">
                   <h2 className="text-xl font-bold">Assessment: {assessment.title}</h2>
                   <p>Duration: {assessment.duration} minutes</p>
