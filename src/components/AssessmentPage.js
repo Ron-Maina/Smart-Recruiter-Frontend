@@ -14,13 +14,15 @@ function AssessmentPage({ assessment, client}) {
   const [errorMessage, setErrorMessage] = useState('')
 
   const time = assessment.duration
-
+  
+//   console.log(assessment.id)
   useEffect(() => {
     // Check if the assessment data is already in local storage
     const storedAssessment = localStorage.getItem('assessment');
     if (storedAssessment) {
       setQuestions(JSON.parse(storedAssessment));
     } else {
+
       fetch(`/questions/${assessment.id}`)
         .then((response) => {
           if (!response.ok) {
@@ -37,7 +39,11 @@ function AssessmentPage({ assessment, client}) {
           console.error('Error fetching data:', error);
         });
     }
-    }, [])
+    }, [assessment.id])
+
+    const resetLocalStorage = () => {
+        localStorage.removeItem('assessment'); // Clear the assessment data from local storage
+    };
 
     useEffect(() => {
         // Countdown timer
@@ -86,7 +92,6 @@ function AssessmentPage({ assessment, client}) {
                 .then((response) => {
                     response.json()
                 })
-                .then(data => console.log(data))
                 .catch((error) => {
                 console.error("Error posting answers:", error);
                 });
@@ -110,7 +115,6 @@ function AssessmentPage({ assessment, client}) {
                 .then((response) => {
                     response.json();
                 })
-                .then((data) => console.log(data))
                 .catch((error) => {
                 console.error("Error posting kata answers:", error);
                 });
@@ -119,25 +123,31 @@ function AssessmentPage({ assessment, client}) {
         
     }
 
+    function postTotalScore(){
+        fetch(`/update_interviewee_assessment/${assessment.id}/${client.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({'score': totalScore}),
+        })
+        .then(res => res.json())
+    };
+        
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAnswers({ ...answers, [name]: value });
   };
+//   console.log(answers)
 
   const handleModalSubmit = () => {
 
-    for (const question of questions) {
-        const answer = answers[`question_${question.id}`];
-  
-        if (!answer) {
-            setErrorMessage('Please answer all questions before submitting.')
+    for (const key in answers) {
+        if(key === ""){
+            setErrorMessage("Please answer all questions")
+        }
 
-            setTimeout(() => {
-                setErrorMessage('');
-            }, 3000);
-            return;
-
-        } else {
+        else {
             postAnswers();
             setIsSubmitting(true);
             
@@ -170,13 +180,17 @@ function AssessmentPage({ assessment, client}) {
         }
     }
 
-    
   };
+
+ 
 
   const resetCountdown = () => {
     // Reset the countdown to its initial value
+    postTotalScore()
+    resetLocalStorage()
     setRemainingTime(time*60);
     setShowModal(false); // Close the modal
+   
   };
 
   // Helper function to format time as hours and minutes
