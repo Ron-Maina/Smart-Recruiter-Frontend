@@ -37,7 +37,7 @@ function AcceptedAssessments({onrenderAssessment}) {
         <Modal.Body>
           <p>Assessment will begin immediately you click one of the buttons below</p>
           <div style={{display: 'flex', justifyContent: 'center', gap: '20px'}}>
-          <Button variant="outline-success">Take Demo</Button>{' '}
+          <Link to='/demo'><Button variant="outline-success">Take Demo</Button>{' '}</Link>
           <Link to= '/assessmentpage'><Button variant="outline-success" onClick={() => viewAssessment(displayed)}>Start Assessment</Button>{' '}</Link>
           </div>
         </Modal.Body>

@@ -6,7 +6,6 @@ import { Button } from 'react-bootstrap';
 
 function SignUp({ onSignUp }) {
   const navigate = useNavigate();
-  const [refreshPage, setRefreshPage] = useState(false);
   const [url, setUrl] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [successfulSignup, setSuccessfulSignup] = useState(false); 
@@ -42,11 +41,13 @@ function SignUp({ onSignUp }) {
     }
   }
 
+  const phonenumberpattern = /^(?:254|0)[17]\d{8}$/
+  const passwordpattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
   const formSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Must enter email'),
     username: yup.string().required('Must enter a username'),
-    password: yup.string().required('Must Enter Password'),
-    number: yup.string().required('Must Enter Phone Number'),
+    password: yup.string().required('Must Enter Password').matches(passwordpattern, 'Password must include alphanumeric characters and symbols'),
+    number: yup.string().required('Must Enter Phone Number').matches(phonenumberpattern, 'Phone number is not valid'),
   });
 
   const formik = useFormik({
@@ -202,7 +203,7 @@ function SignUp({ onSignUp }) {
           <p style={{ color: 'green', textAlign: 'center' }}>Successful signup</p>
         )}
         {signUpFailed && (
-          <p style={{ color: 'red', textAlign: 'center' }}>SignUp Failed!</p>
+          <p style={{ color: 'red', textAlign: 'center' }}>SignUp Failed! Email may already exist</p>
         )}
       </div>
     </div>
