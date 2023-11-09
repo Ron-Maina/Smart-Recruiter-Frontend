@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RecruiterSidebar from './RecruiterSidebar';
-
+import { Spinner } from "react-bootstrap";
 import Navigationbar from './Navbar';
 
 
@@ -8,6 +8,10 @@ function Recruiterfeedback({reviewing_id, username}) {
   const [feedback, setFeedback] = useState('');
   const [mcqFtdata, setMcqFtData] = useState([]);
   const [kataData, setKataData] = useState([]);
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Fetch data from your endpoint
@@ -36,14 +40,32 @@ function Recruiterfeedback({reviewing_id, username}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`/update_feedback/${reviewing_id[0]}/${reviewing_id[1]}`, {
+    setLoading(true)
+    fetch(`/update_interviewee_assessment/${reviewing_id[0]}/${reviewing_id[1]}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
         },
         body: JSON.stringify(feedback_dict),
     })
-    .then(res => res.json())
+    .then(res => {
+      if (res.status === 200){
+        setSuccessMessage("Feedback posted successfully")
+        clearMessages();
+        setLoading(false)
+      } else {
+        setErrorMessage("Failed! Try Again")
+        clearMessages();
+        setLoading(false)
+      }
+    })
+  };
+
+  const clearMessages = () => {
+    setTimeout(() => {
+      setSuccessMessage('')
+      setErrorMessage('');
+    }, 2000); // Clear messages after 2 seconds
   };
 
   return (
@@ -54,7 +76,8 @@ function Recruiterfeedback({reviewing_id, username}) {
 
       <div className="display">
         <RecruiterSidebar />
-        <div className="absolute top-[155px] left-[500px] rounded-3xs bg-darkslategray box-border w-[941px] h-[600px] border-[2px] border-solid border-lightgoldenrodyellow bg-[#324c59] bg-opacity-60 relative" style={{borderRadius: '20px'}}>
+        <div className="absolute top-[155px] left-[500px] rounded-3xs bg-darkslategray box-border w-[941px] h-[600px] border-[2px] border-solid border-lightgoldenrodyellow bg-[#324c59] bg-opacity-60 relative" 
+        style={{borderRadius: '20px', overflowY: "auto", overflowX: 'hidden'}}>
         
 
           <h1 className="text-2xl font-semibold text-white p-4">{username}'s Assessment</h1>
@@ -84,7 +107,7 @@ function Recruiterfeedback({reviewing_id, username}) {
             </div>
           ))}
           
-          <div className="bg-black p-4 rounded-lg m-4 text-white absolute bottom-0 w-[95%]">
+          <div className="bg-black p-4 rounded-lg m-4 text-white absolute bottom-0 w-[95%]" style={{ position: 'sticky', bottom: 0 }}>
             <form onSubmit={handleSubmit}>
               <textarea
                 value={feedback}
@@ -101,7 +124,15 @@ function Recruiterfeedback({reviewing_id, username}) {
               >
                 Submit
               </button>
+              
             </form>
+            {loading && 
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            }
+            {successMessage && <p style={{color: 'green', textAlign: 'center', fontFamily: 'fantasy'}} className="success-message">{successMessage}</p>}
+            {errorMessage && <p style={{color: 'red', textAlign: 'center', fontFamily: 'fantasy'}} className="error-message">{errorMessage}</p>}
           </div>
         </div>
       </div>

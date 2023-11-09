@@ -10,7 +10,6 @@ function RecruiterAssessments({ onrender }) {
   const [selectedAssessment, setSelectedAssessment] = useState(null);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [recipientEmails, setRecipientEmails] = useState("");
-  const [message, setMessage] = useState("");
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -43,6 +42,9 @@ function RecruiterAssessments({ onrender }) {
     "title": selectedAssessment?.title,
     "assessment_id": selectedAssessment?.id,
 
+  }
+  function handleRender(assessment){
+    onrender(assessment)
   }
 
   function handleClick(assessment) {
@@ -110,7 +112,7 @@ function RecruiterAssessments({ onrender }) {
               >
              <div style={{marginLeft: '200px'}}>
                <Link to="/recruiterinterviewees" className="link_to">
-                 <h2 className="text-xl font-bold">{assessment.title}</h2>
+                 <h2 className="text-xl font-bold" onClick={() => handleRender(assessment)}>{assessment.title}</h2>
                </Link>
                <h5 style={{ fontSize: "medium", cursor: "pointer" }} onClick={() => handleClick(assessment)}>
                  {assessment.link}

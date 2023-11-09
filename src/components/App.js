@@ -67,8 +67,8 @@ function App() {
     setLoggedUser(user)
   }
 
-  function handleRender(id){
-    setAssessment_id(id)
+  function handleRender(assessment){
+    setAssessment_id(assessment.id)
   }
 
   function renderAssessment(assessment){
