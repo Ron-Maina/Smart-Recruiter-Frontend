@@ -11,6 +11,7 @@ import RecruiterIntervieweelist from './RecruiterIntervieweelist';
 import AcceptedAssessments from './AcceptedAssessments';
 import ViewFeedback from './ViewFeedback';
 import AssessmentPage from './AssessmentPage';
+import Demo from './Workspace/Demo.js';
 
 import MyReviews from './MyReviews.js';
 import CreateAssessment from './CreateAssessment';
@@ -101,7 +102,7 @@ function App() {
 
 
 
-          {/* <Route exact path='/demo' element={<Demo />} /> */}
+          <Route exact path='/demo' element={<Demo />} />
           <Route exact path='/newassessment' element={<CreateAssessment recruiter={recruiter}/>} />
 
           {/* <Route exact path='/feedback' element={<IntervieweeReviewed />} /> */}

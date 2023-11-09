@@ -7,7 +7,9 @@ function SignIn({ onLogin }) {
   const [email, setemail] = useState('');
   const [Password, setPass] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(''); // State to manage the disappearing message
+  const [message, setMessage] = useState(''); 
+
+  const [error, setError] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +33,6 @@ function SignIn({ onLogin }) {
           });
         } else {
           return response.json().then((user) => {
-            console.log(user)
             if (user !== null){
               setMessage('Successful log in')
               if (user.role === 'recruiter') {
@@ -58,6 +59,33 @@ function SignIn({ onLogin }) {
         console.error('Error:', error);
       });
   }
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  const handleEmail = event => {
+      if (!isValidEmail(event.target.value)) {
+        setError('Email is invalid');
+      } else {
+        setError(null);
+      }
+
+      setemail(event.target.value);
+  };
+
+  function isValidPassword(Password) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(Password);
+  }
+
+  const handlePassword = event => {
+      if (!isValidPassword(event.target.value)) {
+        setError('Email is invalid');
+      } else {
+        setError(null);
+      }
+
+      setPass(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -91,12 +119,13 @@ function SignIn({ onLogin }) {
             required
             type="text"
             value={email}
-            onChange={(e) => setemail(e.target.value)}
+            onChange={handleEmail}
           />
+          <p>{error && <h7 style={{color: 'red'}}>{error}</h7>}</p>
           <br />
           <br />
 
-          <label htmlFor="password" className="input-label">
+          <label htmlFor="password" className="input-label" style={{marginTop: '-50px'}}>
             <text>Password:</text>
           </label>
           <br />
@@ -107,7 +136,7 @@ function SignIn({ onLogin }) {
             required
             type={showPassword ? 'text' : 'password'}
             value={Password}
-            onChange={(e) => setPass(e.target.value)}
+            onChange={handlePassword}
           />
           <div style={{ marginTop: '20px' }}>
             <Button variant="primary" type="submit">
@@ -121,7 +150,7 @@ function SignIn({ onLogin }) {
         </form>
         <br />
         <Link to="/signup" className="link_to">
-          <span>Create new Account?</span>
+          <h5 style={{paddingTop: '20px', fontFamily: 'fantasy'}}><span>Create new Account?</span></h5>
         </Link>
       </div>
     </div>
