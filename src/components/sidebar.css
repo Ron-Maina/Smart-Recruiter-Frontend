@@ -1,0 +1,26 @@
+.sidebar{
+    background-color: rgba(32, 129, 161, 0.2);
+    position: absolute;
+    left: 100px;
+    overflow: hidden;
+    height: 600px;
+    width: 350px;
+    margin-top: 150px;
+    border-radius: 20px;
+    border: 1px solid lightgoldenrodyellow;
+  }
+  #sidebar-menu{
+    margin-top: 40px;
+    text-align: center;
+  }
+.sidebar-content{
+    text-align: center;
+    margin-top: 150px;
+}
+.sidebar-content div{
+    margin-bottom: 50px;
+    color: deepskyblue;
+    opacity: 1;
+}
+  
+  
