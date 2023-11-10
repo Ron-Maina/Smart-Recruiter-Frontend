@@ -7,7 +7,7 @@ import Navigationbar from "./Navbar";
 
 function MyReviews({ renderFeedback }) {
   const [assessments, setAssessments] = useState([]);
-  const [apiUrl, setApiUrl] = useState("/reviewedassessments");
+  const [apiUrl, setApiUrl] = useState("https://smart-recruiter-api.onrender.com/reviewedassessments");
   const [selectedAssessment, setSelectedAssessment] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -16,9 +16,9 @@ function MyReviews({ renderFeedback }) {
 
   function handleToggle(viewMode) {
     if (viewMode === "reviewed") {
-      setApiUrl("/reviewedassessments");
+      setApiUrl("https://smart-recruiter-api.onrender.com/reviewedassessments");
     } else {
-      setApiUrl("/notreviewedassessments");
+      setApiUrl("https://smart-recruiter-api.onrender.com/notreviewedassessments");
     }
   }
 

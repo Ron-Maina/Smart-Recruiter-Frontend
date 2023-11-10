@@ -23,7 +23,7 @@ function RecruiterAssessments({ onrender }) {
     // Fetch assessment data from the provided endpoint
     const fetchData = async () => {
       try {
-        const response = await fetch("/recruiterassessments"); // Replace with the actual endpoint
+        const response = await fetch("https://smart-recruiter-api.onrender.com/recruiterassessments"); // Replace with the actual endpoint
         if (!response.ok) {
           throw Error("Network response was not ok");
         }
@@ -57,7 +57,7 @@ function RecruiterAssessments({ onrender }) {
 
   function handleQuestionDisplay(assessment) {
     setdisplaQuestions(assessment);
-    fetch(`/questions/${assessment.id}`)
+    fetch(`https://smart-recruiter-api.onrender.com/questions/${assessment.id}`)
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data);
@@ -70,7 +70,7 @@ function RecruiterAssessments({ onrender }) {
 
   function handleSendEmail() {
     setLoading(true)
-    fetch('/sendinvite', {
+    fetch('https://smart-recruiter-api.onrender.com/sendinvite', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

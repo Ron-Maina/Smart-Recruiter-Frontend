@@ -25,7 +25,7 @@ function AssessmentPage({ assessment, client}) {
       setQuestions(JSON.parse(storedAssessment));
     } else {
 
-      fetch(`/questions/${assessment.id}`)
+      fetch(`https://smart-recruiter-api.onrender.com/questions/${assessment.id}`)
         .then((response) => {
           if (!response.ok) {
             throw Error('Network response was not ok');
@@ -84,7 +84,8 @@ function AssessmentPage({ assessment, client}) {
 
             
             if (question.type === 'mcq' || question.type === 'ft'){
-                fetch('/answers', {
+ 
+                fetch('https://smart-recruiter-api.onrender.com/answers', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -107,7 +108,7 @@ function AssessmentPage({ assessment, client}) {
                 };
                 console.log(kataData)
         
-                fetch('/whiteboard', {
+                fetch('https://smart-recruiter-api.onrender.com/whiteboard', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
