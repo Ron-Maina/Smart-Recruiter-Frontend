@@ -83,7 +83,7 @@ function CreateAssessment({ recruiter }) {
   }
 
   const handleConfirm = () => {
-    fetch('/createassessment', {
+    fetch('https://smart-recruiter-api.onrender.com/createassessment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ function CreateAssessment({ recruiter }) {
       // Add a conditional check to prevent the POST request if assessment_id doesn't exist
       if (assessment_id) {
         const promises = assessment_questions.map((question) => {
-          return fetch('/createquestions', {
+          return fetch('https://smart-recruiter-api.onrender.com/createquestions', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -283,7 +283,7 @@ function CreateAssessment({ recruiter }) {
                         <option value="kata">Kata</option>
                     </select>
 
-                    <input
+                    <textarea
                     value={q3}
                     onChange={(e) => setQ3(e.target.value)}
                     placeholder="Enter question 3"
@@ -293,7 +293,7 @@ function CreateAssessment({ recruiter }) {
                     /> 
 
                     <p style={{color: 'white'}}>Tests:</p>
-                    <input
+                    <textarea
                     value={q3_test}
                     onChange={(e) => setQ3_test(e.target.value)}
                     placeholder="Enter tests"

@@ -34,10 +34,10 @@ function SignUp({ onSignUp }) {
     
     if (user === 'recruiter') {
       onSignUp(user);
-      setUrl('/recruitersignup');
+      setUrl('https://smart-recruiter-api.onrender.com/recruitersignup');
     } else if (user === 'interviewee') {
       onSignUp(user);
-      setUrl('/intervieweesignup');
+      setUrl('https://smart-recruiter-api.onrender.com/intervieweesignup');
     }
   }
 

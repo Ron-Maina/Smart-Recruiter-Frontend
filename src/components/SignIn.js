@@ -17,7 +17,7 @@ function SignIn({ onLogin }) {
       email: email,
       password: Password,
     };
-    fetch('/login', {
+    fetch('https://smart-recruiter-api.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
