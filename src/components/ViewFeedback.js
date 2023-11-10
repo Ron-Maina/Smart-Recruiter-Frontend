@@ -6,7 +6,7 @@ function ViewFeedback({assessmentFeedback}) {
     const [feedback, setFeedback] = useState([])
 
     useEffect(() => {
-        fetch(`/intfeedback/${assessmentFeedback}`)
+        fetch(`https://smart-recruiter-api.onrender.com/intfeedback/${assessmentFeedback}`)
         .then(res => res.json())
         .then(data => setFeedback(data))
     }, [])

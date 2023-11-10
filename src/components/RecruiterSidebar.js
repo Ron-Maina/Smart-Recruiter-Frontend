@@ -14,7 +14,7 @@ function RecruiterSidebar(){
   const navigate = useNavigate()
 
   function Logout(){
-    fetch("/recruiterlogout", {
+    fetch("https://smart-recruiter-api.onrender.com/recruiterlogout", {
         method: "DELETE",
     })
 

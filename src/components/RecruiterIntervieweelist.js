@@ -14,8 +14,8 @@ function RecruiterIntervieweelist({ assessment_id, onRenderQuestions}) {
     // Define the API endpoint URL based on the current view mode
     const apiUrl =
       viewMode === "pending"
-        ? `/pendinginterviewees/${assessment_id}`
-        : `/reviewedinterviewees/${assessment_id}`; 
+        ? `https://smart-recruiter-api.onrender.com/pendinginterviewees/${assessment_id}`
+        : `https://smart-recruiter-api.onrender.com/reviewedinterviewees/${assessment_id}`; 
 
     // Fetch interviewee data for the given assessment ID
     fetch(apiUrl)

@@ -20,7 +20,7 @@ function Recruiterfeedback({reviewing_id, username}) {
 
   useEffect(() => {
     // Fetch data from your endpoint
-    fetch(`/ftmcqanswers/${reviewing_id[0]}/${reviewing_id[1]}`)
+    fetch(`https://smart-recruiter-api.onrender.com/ftmcqanswers/${reviewing_id[0]}/${reviewing_id[1]}`)
       .then((response) => response.json())
       .then((responseData) => {
         setMcqFtData(responseData);
@@ -30,7 +30,7 @@ function Recruiterfeedback({reviewing_id, username}) {
 
   useEffect(() => {
     // Fetch data from your endpoint
-    fetch(`/katanswers/${reviewing_id[0]}/${reviewing_id[1]}`)
+    fetch(`https://smart-recruiter-api.onrender.com/katanswers/${reviewing_id[0]}/${reviewing_id[1]}`)
       .then((response) => response.json())
       .then((responseData) => {
         setKataData(responseData);
@@ -47,7 +47,7 @@ function Recruiterfeedback({reviewing_id, username}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true)
-    fetch(`/update_interviewee_assessment/${reviewing_id[0]}/${reviewing_id[1]}`, {
+    fetch(`https://smart-recruiter-api.onrender.com/update_interviewee_assessment/${reviewing_id[0]}/${reviewing_id[1]}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,6 @@ function Recruiterfeedback({reviewing_id, username}) {
       }
     })
 
-    fetch('/')
   };
 
   const clearMessages = () => {
