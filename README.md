@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Smart Recruiter Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to Smart Recruiter, an innovative platform that automates the in-person technical interview process, allowing recruiters to efficiently assess the technical skills of software development interviewees.
 
-## Available Scripts
+## MVP Features
+### For Recruiters
 
-In the project directory, you can run:
+1. Authentication:
+Multiple user-type authentication for Recruiters and Interviewees.
 
-### `npm start`
+2. Assessment Management:
+Create assessments with multiple-choice, subjective (free text) questions, or coding challenges/Katas.
+Review and publish assessments.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Invitations:
+Send invitations to Interviewees individually or in bulk.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. Performance Metrics:
+View a sorted list of Interviewees based on their scores.
+View statistics of answers and Interviewees' performance.
 
-### `npm test`
+5. Detailed Analysis:
+View each Interviewee's answers.
+Leave feedback below each question's answer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. Time Management:
+Set an overall time limit for the test.
+Automatic submission of answers when the time limit is reached.
 
-### `npm run build`
+7. Grading:
+Release grades to Interviewees.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### For Interviewees
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. User Experience:
+Login and see the assessments they are signed up for.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Invitations:
+Accept invitations to assessments.
+Receive notifications for assessment details.
 
-### `npm run eject`
+3. Time Tracking:
+Visibility on remaining time during the test with a countdown.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Practice Mode:
+Take a trial assessment to familiarize yourself with the platform.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Whiteboard Process:
+Submit a full whiteboard process, including BDD, pseudocode, and code.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+6. Feedback:
+Read feedback from mentors.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Technical Expectations
 
-## Learn More
+- Backend:
+Flask Python with PostgreSQL database.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Frontend:
+ReactJs.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Testing Framework:
+Jest & Pytest
 
-### Code Splitting
+- External API:
+Consume CodeWars API to fetch whiteboarding questions for assessments or sample tests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Setup & Installation
 
-### Analyzing the Bundle Size
++ Clone the repository to your local machine:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+git clone git@github.com:Ron-Maina/Smart-Recruiter-Frontend.git
+git clone https://github.com/Ron-Maina/Smart-Recruiter-Backend.git
+```
++ Navigate to the project directory:
 
-### Making a Progressive Web App
+```bash
+cd Smart-Recruiter-Backend
+cd Smart-Recruiter-Frontend
+```
++ Open the project in your code editor:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+code .
+```
++ Install necessary dependencies:
+```bash
+npm install
+```
++ Start the local server:
 
-### Advanced Configuration
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Technologies Used
+. React (Frontend)
+. Flask Python (Backend)
+. PostgreSQL (Database)
+. Jest & Pytest (Testing)
+. CodeWars API (External API)
 
-### Deployment
+## Author
+This frontend script for Smart Recruiter was developed by Patience Wangari Muraguri.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License
+MIT License Copyright (c) [2023] [Patience Muraguri]
 
-### `npm run build` fails to minify
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
