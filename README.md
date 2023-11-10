@@ -59,9 +59,6 @@ Flask Python with PostgreSQL database.
 - Frontend:
 ReactJs.
 
-- Testing Framework:
-Jest & Pytest
-
 - External API:
 Consume CodeWars API to fetch whiteboarding questions for assessments or sample tests.
 
@@ -98,7 +95,6 @@ npm start
 . React (Frontend)
 . Flask Python (Backend)
 . PostgreSQL (Database)
-. Jest & Pytest (Testing)
 . CodeWars API (External API)
 
 ## Author
