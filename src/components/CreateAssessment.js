@@ -283,7 +283,7 @@ function CreateAssessment({ recruiter }) {
                         <option value="kata">Kata</option>
                     </select>
 
-                    <textarea
+                    <input
                     value={q3}
                     onChange={(e) => setQ3(e.target.value)}
                     placeholder="Enter question 3"
@@ -293,7 +293,7 @@ function CreateAssessment({ recruiter }) {
                     /> 
 
                     <p style={{color: 'white'}}>Tests:</p>
-                    <textarea
+                    <input
                     value={q3_test}
                     onChange={(e) => setQ3_test(e.target.value)}
                     placeholder="Enter tests"

@@ -37,7 +37,6 @@ function AcceptedAssessments({onrenderAssessment}) {
         <Modal.Body>
           <p>Assessment will begin immediately you click one of the buttons below</p>
           <div style={{display: 'flex', justifyContent: 'center', gap: '20px'}}>
-          <Link to='/demo'><Button variant="outline-success">Take Demo</Button>{' '}</Link>
           <Link to= '/assessmentpage'><Button variant="outline-success" onClick={() => viewAssessment(displayed)}>Start Assessment</Button>{' '}</Link>
           </div>
         </Modal.Body>
@@ -47,7 +46,7 @@ function AcceptedAssessments({onrenderAssessment}) {
 
   useEffect(() => {
     // Fetch interviewee data for the given assessment ID
-    fetch('/pendingassessments')
+    fetch('https://smart-recruiter-api.onrender.com/pendingassessments')
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

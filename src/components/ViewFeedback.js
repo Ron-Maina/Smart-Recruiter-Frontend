@@ -23,6 +23,8 @@ function ViewFeedback({assessmentFeedback}) {
 
           <div className="mx-4" style={{textAlign: 'left'}}>
             <h2 key={feedback.assessment_id} style={{color: "white"}} className="text-xl font-bold"><span>Feedback: </span>{feedback.feedback}</h2>
+            <br></br>
+            <h2 key={feedback.assessment_id} style={{color: "white"}} className="text-xl font-bold"><span>Your Grade: </span>{feedback.score}</h2>
             
             {feedback.questions?.map(response => (
               <div key={response.question_id}>
@@ -44,7 +46,6 @@ function ViewFeedback({assessmentFeedback}) {
                       <div key={submission.submission_id} style={{color: 'white'}}>
                         <p>Pseudocode: {submission.pseudocode}</p>
                         <p>Code: {submission.code}</p>
-                        <p>Grade: {submission.grade}</p>
                       </div>
                     ))}
                   </div>
