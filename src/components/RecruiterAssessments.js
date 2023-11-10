@@ -10,6 +10,9 @@ function RecruiterAssessments({ onrender }) {
   const [selectedAssessment, setSelectedAssessment] = useState(null);
   const [isEmailModalOpen, setEmailModalOpen] = useState(false);
   const [recipientEmails, setRecipientEmails] = useState("");
+  const [questions, setQuestions] = useState([])
+  const [isQuestionModalOpen, setQuestionModalOpen] = useState(false);
+  const [displaQuestions, setdisplaQuestions] = useState(null);
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -47,9 +50,22 @@ function RecruiterAssessments({ onrender }) {
     onrender(assessment)
   }
 
-  function handleClick(assessment) {
+  function handleShareClick(assessment) {
     setSelectedAssessment(assessment);
     setEmailModalOpen(true);
+  }
+
+  function handleQuestionDisplay(assessment) {
+    setdisplaQuestions(assessment);
+    fetch(`/questions/${assessment.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setQuestions(data);
+        setQuestionModalOpen(true);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
   }
 
   function handleSendEmail() {
@@ -110,13 +126,18 @@ function RecruiterAssessments({ onrender }) {
                   marginLeft: '100px'
                 }}
               >
-             <div style={{marginLeft: '200px'}}>
-               <Link to="/recruiterinterviewees" className="link_to">
-                 <h2 className="text-xl font-bold" onClick={() => handleRender(assessment)}>{assessment.title}</h2>
-               </Link>
-               <h5 style={{ fontSize: "medium", cursor: "pointer" }} onClick={() => handleClick(assessment)}>
-                 {assessment.link}
-               </h5>
+             <div style={{marginLeft: '200px', textAlign: 'left'}}>
+                 <h2 className="text-xl font-bold" 
+                 onClick={() => handleQuestionDisplay(assessment)} 
+                 style={{cursor: "pointer" }}
+                 >
+                  {assessment.title}
+                </h2>
+               
+               <div style={{ fontSize: "medium", display: 'flex'}} >
+                 <p>{assessment.link}</p>
+                 <FiShare2 style={{marginLeft: '300px', cursor: "pointer" }} onClick={() => handleShareClick(assessment)} />
+               </div>
              </div>
            </div>
             ))}
@@ -124,12 +145,41 @@ function RecruiterAssessments({ onrender }) {
         </div>
       </div>
 
+      {displaQuestions && (
+        <Modal
+        show={isQuestionModalOpen}
+        onHide={() => setQuestionModalOpen(false)}
+        centered
+        >
+        <Modal.Header closeButton>
+          <Modal.Title>Assessment Questions</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {questions.map((question, index) => (
+            <div key={question.id}>
+              <h5 style={{fontFamily: 'fantasy'}}>Q{index+1}: {question.question} ({question.type})</h5>
+            </div>
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setQuestionModalOpen(false)}>
+            Close
+          </Button>
+          <Link to="/recruiterinterviewees" className="link_to">
+            <Button variant="primary" onClick={handleRender} disabled={loading}>
+              Review Assessment
+            </Button>
+          </Link>
+        </Modal.Footer>
+      </Modal>
+      )}
+
       {selectedAssessment && (
         <Modal
         show={isEmailModalOpen}
         onHide={() => setEmailModalOpen(false)}
         centered
-      >
+        >
         <Modal.Header closeButton>
           <Modal.Title>Send Assessment Link</Modal.Title>
         </Modal.Header>

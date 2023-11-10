@@ -40,7 +40,7 @@ function App() {
 
 
   useEffect(() => {
-    fetch("/recruitersession")
+    fetch("https://smart-recruiter-api.onrender.com/recruitersession")
     .then((response) => {
       if (response.ok) {
         response.json()
@@ -52,7 +52,7 @@ function App() {
   }, [role, loggedUser]);
 
   useEffect(() => {
-    fetch("/intervieweesession")
+    fetch("https://smart-recruiter-api.onrender.com/intervieweesession")
     .then((response) => {
       if (response.ok) {
         response.json()
@@ -105,7 +105,7 @@ function App() {
           <Route exact path='/demo' element={<Demo />} />
           <Route exact path='/newassessment' element={<CreateAssessment recruiter={recruiter}/>} />
 
-          {/* <Route exact path='/feedback' element={<IntervieweeReviewed />} /> */}
+  
 
 
           <Route exact path='/recruiterfeedback' element={<Recruiterfeedback reviewing_id={reviewing_id} username={username}/>} />

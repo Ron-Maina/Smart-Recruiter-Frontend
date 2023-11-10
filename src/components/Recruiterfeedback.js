@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import RecruiterSidebar from './RecruiterSidebar';
 import { Spinner } from "react-bootstrap";
 import Navigationbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
 
 
 function Recruiterfeedback({reviewing_id, username}) {
   const [feedback, setFeedback] = useState('');
   const [mcqFtdata, setMcqFtData] = useState([]);
   const [kataData, setKataData] = useState([]);
+  const [finalgrade, setFinalGrade] = useState('');
+
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Fetch data from your endpoint
@@ -35,7 +40,8 @@ function Recruiterfeedback({reviewing_id, username}) {
 
  
   const feedback_dict = {
-    'feedback': feedback
+    'feedback': feedback,
+    'score': finalgrade,
   }
 
   const handleSubmit = (e) => {
@@ -53,12 +59,15 @@ function Recruiterfeedback({reviewing_id, username}) {
         setSuccessMessage("Feedback posted successfully")
         clearMessages();
         setLoading(false)
+        navigate('/recruiterassessments')
       } else {
         setErrorMessage("Failed! Try Again")
         clearMessages();
         setLoading(false)
       }
     })
+
+    fetch('/')
   };
 
   const clearMessages = () => {
@@ -118,6 +127,19 @@ function Recruiterfeedback({reviewing_id, username}) {
                 className="w-full p-2 rounded-md bg-gray-800 text-[#f3f0ca]"
                 style={{ maxHeight: '100px' }}
               />
+              <label htmlFor="username" className="input-label">
+                <text>Grade:</text>
+              </label>
+              <br />
+              <input
+                className="authentication-input"
+                name="username"
+                required
+                type="text"
+                value={finalgrade}
+                onChange={(e) => setFinalGrade(e.target.value)}
+              />
+              <br></br>
               <button
                 type="submit"
                 className="bg-blue-500 hover-bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-2"

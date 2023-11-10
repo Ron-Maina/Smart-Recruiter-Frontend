@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Navigationbar from './Navbar';
 import { Link } from "react-router-dom";
+import MonacoEditor from 'react-monaco-editor'; 
 import { Button, Modal, Form, InputGroup, FormControl, FormCheck} from 'react-bootstrap';
 import useLocalStorage from './useLocalStorage';
+
 
 function AssessmentPage({ assessment, client}) {
   const [questions, setQuestions] = useState([]);
@@ -102,8 +104,8 @@ function AssessmentPage({ assessment, client}) {
                     "question_id": question.id,
                     "pseudocode": answers[`pseudocode_${question.id}`],
                     "code": answers[`code_${question.id}`],
-                    "grade": answers[`code_${question.id}`] === question.solution ? 100 : 0
                 };
+                console.log(kataData)
         
                 fetch('/whiteboard', {
                     method: 'POST',
@@ -123,13 +125,13 @@ function AssessmentPage({ assessment, client}) {
         
     }
 
-    function postTotalScore(){
-        fetch(`/update_interviewee_assessment/${assessment.id}/${client.id}`, {
+    function postIntervieweeStatus(){
+        fetch(`https://smart-recruiter-api.onrender.com/update_interviewee_assessment/${assessment.id}/${client.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 },
-                body: JSON.stringify({'score': totalScore}),
+                body: JSON.stringify({'status': 'completed'}),
         })
         .then(res => res.json())
     };
@@ -138,7 +140,7 @@ function AssessmentPage({ assessment, client}) {
     const { name, value } = e.target;
     setAnswers({ ...answers, [name]: value });
   };
-//   console.log(answers)
+
 
   const handleModalSubmit = () => {
 
@@ -156,12 +158,8 @@ function AssessmentPage({ assessment, client}) {
             questions.forEach((question) => {
                 const answer = answers[`question_${question.id}`];
 
-                if (question.type === 'kata') {
-                    const userCode = answers[`code_${question.id}`];
-                    if (userCode === question.solution) {
-                    total += 1;
-                    }
-                } else {
+                
+                if (question.type === 'mcq' || question.type === 'ft') {
                     if (answer === question.solution) {
                     total += 1;
                     }
@@ -186,7 +184,7 @@ function AssessmentPage({ assessment, client}) {
 
   const resetCountdown = () => {
     // Reset the countdown to its initial value
-    postTotalScore()
+    postIntervieweeStatus()
     resetLocalStorage()
     setRemainingTime(time*60);
     setShowModal(false); // Close the modal
@@ -200,18 +198,19 @@ function AssessmentPage({ assessment, client}) {
     return `${hours} hours ${minutes} minutes`;
   };
 
+
   return (
     <div className="page">
       <div id="intervieweehomepage-bg"></div>
       <Navigationbar />
-      <div className="assessmentpage">
-        <div style={{ textAlign: 'left' }}>
+      <div className="assessmentpage" style={{overflowY: 'auto'}}>
+        <div style={{ textAlign: 'left'}}>
           <div>
             <p style={{ color: 'white', textAlign: 'center' }}>Time Remaining: {formatTime(remainingTime)}</p>
             {questions.map((question, index) => (
               <div key={question.id}>
                 <div style={{ color: 'lightgoldenrodyellow' }}>
-                  <p style={{ color: 'lightgoldenrodyellow' }}>Q{index + 1}: {question.question}</p>
+                  <p style={{ color: 'lightgoldenrodyellow' }}>Q{index + 1}: {question.question} ({question.type})</p>
                 </div>
                 {question.type === 'mcq' ? (
                   question.choices.split(',').map((choice, choiceIndex) => (
@@ -231,6 +230,7 @@ function AssessmentPage({ assessment, client}) {
                 ) : question.type === 'ft' ? (
                   <InputGroup className="mb-3">
                     <FormControl
+                        placeholder='Type in your answer'
                         required
                         type="text"
                         name={`question_${question.id}`}
@@ -242,20 +242,38 @@ function AssessmentPage({ assessment, client}) {
                   <Form.Group>
                     <Form.Control
                         required
+                        placeholder='Your pseudocode'
                         as="textarea"
+                        rows={4}
                         name={`pseudocode_${question.id}`}
                         onChange={handleInputChange}
                     />
                   </Form.Group>
                   <br></br>
-                  <Form.Group>
-                    <Form.Control
-                        required
-                        as="textarea"
-                        name={`code_${question.id}`}
-                        onChange={handleInputChange}
-                    />
-                  </Form.Group>
+                  
+                    <MonacoEditor
+                    width="100%"
+                    defaultValue="Enter your code"
+                    height="400"
+                    language="python"
+                    value={answers[`code_${question.id}`]} // You can use a different state for code if needed
+                    onChange={(code) =>
+                      handleInputChange({
+                        target: {
+                          name: `code_${question.id}`,
+                          value: code,
+                        },
+                      })
+                    }
+                    options={{
+                      selectOnLineNumbers: true,
+                      roundedSelection: false,
+                      readOnly: false,
+                      cursorStyle: 'line',
+                      automaticLayout: true,
+                    }}
+                  />
+                  
                 </>
                 ) : null}
                 <br></br>
@@ -295,12 +313,10 @@ function AssessmentPage({ assessment, client}) {
                                 {answers[`code_${question.id}`] === question.solution ? (
                                 <>
                                     <p>Your code: {answers[`code_${question.id}`]}</p>
-                                    <p>Score: 100%</p>
                                 </>
                                 ) : (
                                 <>
                                     <p>Your code: {answers[`code_${question.id}`]}</p>
-                                    <p>Score: 0%</p>
                                 </>
                                 )}
                             </>
